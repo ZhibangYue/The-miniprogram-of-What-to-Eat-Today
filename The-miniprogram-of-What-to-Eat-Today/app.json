@@ -2,7 +2,8 @@
   "pages":[
     "pages/index/index",
     "pages/menu/menu",
-    "pages/person/person"
+    "pages/person/person",
+    "pages/about/about"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -16,20 +17,20 @@
     "list": [{
       "pagePath": "pages/index/index",
       "text": "主页",
-      "iconPath": "",
-      "selectedIconPath": ""
+      "iconPath": "/image/首页.png",
+      "selectedIconPath": "/image/首页.png"
     },
     {
       "pagePath": "pages/menu/menu",
       "text": "菜品",
-      "iconPath": "",
-      "selectedIconPath": ""
+      "iconPath": "/image/订单.png",
+      "selectedIconPath": "/image/订单.png"
     },
     {
       "pagePath": "pages/person/person",
       "text": "个人",
-      "iconPath": "",
-      "selectedIconPath": ""
+      "iconPath": "/image/我的.png",
+      "selectedIconPath": "/image/我的.png"
     }
     ]
   },

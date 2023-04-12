@@ -1,1 +1,4 @@
 /* pages/person/person.wxss */
+page {
+  background-color: #F8f8f8;
+}

@@ -1,0 +1,7 @@
+/* pages/login/login.wxss */
+.input{
+  margin: 10rpx;
+  border:solid 5rpx rgb(240,240,240);
+  border-radius: 10rpx;
+  width: 100%;
+}

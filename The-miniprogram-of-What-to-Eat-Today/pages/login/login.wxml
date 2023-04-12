@@ -1,0 +1,8 @@
+<view style="margin: auto;max-width: 70%;">
+  <view style="margin-top: 30%;margin-bottom: 10%;text-align: center;font-size: 60rpx;">登录</view>
+  <input class="input" type="text" placeholder="学号" bindblur="inputUsername" bindfocus="clearError"/>
+  <input class="input" type="text" placeholder="昵称" bindblur="inputNickname" bindfocus="clearError"/>
+  <view>错误：{{error}}</view>
+  <button bindtap="login" type="primary">登录</button>
+  <navigator open-type="switchTab" url="/pages/index/index">直接跳转</navigator>
+</view>

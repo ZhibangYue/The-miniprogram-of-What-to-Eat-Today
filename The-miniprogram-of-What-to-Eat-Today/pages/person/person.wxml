@@ -1,2 +1,35 @@
-<!--pages/person/person.wxml-->
-<text>pages/person/person.wxml</text>
+<view style="margin: auto;max-width: 70%;">
+  <view style="margin-top: 5%;display: flex;height: 150rpx;" bindtap="resetavatar">
+    <image src="{{avatarUrl}}" style="margin: 0%;border-radius: 50%;margin-top: 15rpx;left: 0%;height: 120rpx;width: 120rpx;"></image>
+    <view style="background-color: #ffffff;width: 75%;height: 90%;margin-top: 2.5%;border-radius: 30rpx;">
+      <view wx:if="{{nickname!=''}}" style="margin-left: 30rpx;margin-top: 30rpx;font: bold;font-size: 40rpx;">{{nickname}}</view>
+      <view wx:else="" style="margin-left: 30rpx;margin-top: 30rpx;font: bold;font-size: 40rpx;">未设置</view>
+      <view wx:if="{{signnature!=''}}" style="margin-left: 30rpx;font-size: 20rpx;color: rgb(130,130,130);">{{signnature}}</view>
+      <view wx:else="" style="margin-left: 30rpx;font-size: 25rpx;font-style: italic;color: rgb(100,100,100);">还没有设置个性签名</view>
+      </view>
+  </view>
+  <view style="margin-top: 15%;border-radius: 10rpx;background-color: #ffffff;box-shadow: 0 3rpx rgb(230,230,230),0 -3rpx rgb(230,230,230);">
+    <view style="font: small-caps bold 24px/1 sans-serif;height: 60rpx;padding: 0%;background-color: #ffffff;width: 100%;text-align: left;justify-content: center;font-size: 40rpx;" bindtap="about">
+       <image style="height: 40rpx;width: 40rpx;margin-top: 1%;" src="../../image/帮助.png"/> 关于
+       <image style="height: 40rpx;width: 40rpx;margin-top: 1%;float: right;" src="../../image/chevron_right.png" />
+    </view>
+  </view>
+  <page-container 
+    show="{{show}}"
+    position="bottom"
+    overlay="true"
+    custom-style="height: 50%;background-color:rgba(255,255,255,1)"
+    overlay-style="background-color: rgba(0, 0, 0, 0.7); filter: blur(4px);"
+    bind:clickoverlay="close"
+    >
+    <view style="margin: auto;margin-top: 7%;max-width: 70%;">
+    请设置你的头像与昵称：
+    <button style="padding: 0;margin-top: 6%;margin-left: 0%;width: 120rpx;height: 120;background-color: rgb(255,255,255);" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">头像：
+      <image src="{{avatarUrl}}" style="margin: 0%;left: 0%;height: 120rpx;width: 120rpx;margin: 0%;"></image>
+    </button> 
+  <input style="margin-left: 0rpx;margin-top: 4%;width: max-content;background-color:rgb(230,230,230);border-radius: 20rpx;height: 80rpx;width: 100%;" type="nickname" placeholder="输入你的昵称"  model:value="{{nickname}}" />
+  <input style="margin-left: 0rpx;margin-top: 1%;width: max-content;background-color:rgb(230,230,230);border-radius: 20rpx;height: 80rpx;width: 100%;" placeholder="设置你的个性签名"  model:value="{{signnature}}" />
+    </view>
+    <button bindtap="close" type="primary" style="margin-top: 4%;">确认</button>
+  </page-container>
+</view>

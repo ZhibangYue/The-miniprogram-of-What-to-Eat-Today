@@ -4,7 +4,7 @@
     <!-- <text style="margin-top: auto;font-size: large;flex: auto;">当前：{{campus}}-{{restaurant}}</text>
      <button style="flex: auto; width: 90rpx;background-color: darkblue;color: white;max-width: max-content;max-height: max-content;margin-right: 5rpx;" bindtap="changeRestaurant">切换</button> -->
 
-     <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange"
+     <picker bindtap="change" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange"
       value="{{multiIndex}}" range="{{multiArray}}"
      >
       <view style="font-size: 40rpx;height: 80rpx;justify-content: center;display: flex;">
@@ -15,11 +15,14 @@
   </view>
   <view style="margin: auto;max-width: 70%;margin-top: 50%;">
     <view style="text-align: center;font-size: 50rpx;">{{now}}{{choice}}</view>
-    <swiper wx:if="{{!(isClick-1)}}" style="text-align: center;font-size: 50rpx;margin-top: 12%;max-height:30px;overflow: hidden;" vertical="true" autoplay="true" interval="17" duration="87" circular="true">
-      <swiper-item style="height: 100px;" wx:for="{{a}}">{{item.name}}</swiper-item>
+    
+    <swiper wx:if="{{isClick}}" style="text-align: center;font-size: 50rpx;margin-top: 12%;max-height:30px;overflow: hidden;" vertical="true" autoplay="{{autoplay}}" interval="{{speed}}" duration="87" circular="true" bindchange="getcurrent">
+      <swiper-item style="height: 100px;" wx:for="{{a}}" >{{item.name}}</swiper-item>
     </swiper>
-    <!--  -->
-    <view wx:elif="{{isClick==2}}" style="text-align: center;font-size: 50rpx;margin-top: 12%;">{{a[disk].name}}</view>
+    <!-- " -->
+    
+    <!-- <view wx:elif="{{isClick==2}}" style="text-align: center;font-size: 50rpx;margin-top: 12%;">{{a[disk].name}}</view> -->
+
     <view style="display: flex;margin-top: 15%;">
       <button wx:if="{{isClick==0||isClick==2}}" bindtap="rank" style="flex: auto;max-width: max-content;background-color: lightsalmon;">开始</button>
         <button wx:if="{{isClick==1}}"  bindtap="rank" style="flex: auto;max-width: max-content;background-color: lightgreen;">{{msg}}</button>
@@ -45,7 +48,7 @@
       </view>
     </view>
     <view style="display: flex;margin: auto;margin-top: 10%;max-width: 75%;">
-      <button style="flex: auto;max-width: max-content;background-color: lightsalmon;">就它了</button>
+      <button style="flex: auto;max-width: max-content;background-color: lightsalmon;" bindtap="close">就它了</button>
       <button bindtap="rank" style="flex: auto;max-width: max-content;background-color: lightgreen;">换一个</button>
     </view>
     </view>

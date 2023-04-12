@@ -17,6 +17,8 @@ Page({
     disk:0,
     now:"早餐",
     length:15,
+    speed:20,
+    autoplay:false,
     a:[{name:"面条",  //测试数据
         intro:"香香香，香香香",
         possition:"不知道",
@@ -188,13 +190,16 @@ Page({
             data.multiArray[1] = ['齐园'];
             break;
           case 2:
-            data.multiArray[1] = ['3号餐厅','七号餐厅','民族食堂']
+            data.multiArray[1] = ['三号餐厅','七号餐厅','民族食堂']
+            break;
+          case 3:
+            data.multiArray[1] = ['杏园']
             break;
           case 4:
-            data.multiArray[1] = ['一餐厅','二餐厅']
+            data.multiArray[1] = ['一号餐厅','二号餐厅']
             break;
           case 5:
-            data.multiArray[1] = ['一餐厅','二餐厅'];
+            data.multiArray[1] = ['西苑','舜园'];
             break;
           case 6:
             data.multiArray[1] = ['晨园','曦园']
@@ -207,29 +212,76 @@ Page({
         break;
     }
     this.setData(data);
+    wx.request({
+      url: app.data.baseUrl+"/frontpage/draw_dishes",
+      data:{
+        canteen_id:this.data.multiIndex[0]+''+(this.data.multiIndex[1]+1),
+        timex:this.data.now[0],
+      },
+      success: (e)=>{                    
+        if(e.statusCode == 200)
+        {
+          console.log(e.data.data.dishes_information)
+          // this.setData({
+          //   a:e.detail.data.dishes_information
+          // })
+        }
+      }
+    })
   },
-
+  change:function (params) {
+    this.setData({
+      isClick:0,
+      autoplay:false,
+      msg:"不行，换一个"
+    })
+  },
+  close:function () {
+    this.setData({
+      showDisk:false,
+      autoplay:false
+    })
+  },
+  getcurrent:function (e) {
+    this.setData({
+      disk:e.detail.current
+    })
+  },
   rank:function () {
     if(this.data.msg!="停止"){
       this.setData({
+        speed:20,
+        autoplay:true,
         showDisk:false,
         choice:"吃什么？",
         isClick:1,
         msg: "停止"
       })
-      
-      // if(!tervaid)tervaid = setInterval(()=>{},100)
+      // if(!tervaid)
   }
   else {
-    this.setData({disk : parseInt(Math.random()*this.data.length*10)%this.data.length})
+    //this.setData({disk : })
     // clearInterval(tervaid)
-    tervaid=0
-    this.setData({
-      showDisk:true,
-      choice:"吃这个！",
-      isClick:2,
-      msg: "不行，换一个"
-    })
+    //tervaid=0
+    let v=0;
+    if(!tervaid)tervaid = setInterval(()=>{
+      v=this.data.speed*1.15;
+      this.setData({
+        speed:v
+      })
+      if(this.data.speed>=500+parseInt(Math.random()*this.data.length*10)%this.data.length){
+        this.setData({
+          showDisk:true,
+          autoplay:false,
+          choice:"吃这个！",
+          isClick:2,
+          msg: "不行，换一个"
+        })
+        clearInterval(tervaid)
+        tervaid=0;
+      }
+    },100)
+    
   }
   }, 
   // changeRestaurant:function () {
@@ -249,7 +301,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    wx.request({
+      url: app.data.baseUrl+"/frontpage/draw_dishes",
+      data:{
+        canteen_id:this.data.multiIndex[0]+''+(this.data.multiIndex[1]+1),
+        timex:this.data.now[0],
+      },
+      success: (e)=>{                    
+        if(e.statusCode == 200)
+        {
+          console.log(e.data.data.dishes_information)
+          // this.setData({
+          //   a:e.detail.data.dishes_information
+          // })
+        }
+        
+      }
+    })
     // this.setData({
     //   hhh:'2222'
     // })
