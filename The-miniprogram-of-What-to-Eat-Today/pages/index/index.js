@@ -18,7 +18,7 @@ Page({
     now:"早餐",
     length:15,
     speed:20,
-    autoplay:false,
+    autoplay:false,   
     a:[{name:"面条",  //测试数据
         intro:"香香香，香香香",
         possition:"不知道",
@@ -167,6 +167,7 @@ Page({
     multiIndex: [0, 0],
   },
 
+//-------监听和改变滚动选择器，并请求相应菜名---------
   bindMultiPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -229,25 +230,31 @@ Page({
       }
     })
   },
-  change:function (params) {
+
+
+
+  change:function (params) {  //当所选校区和餐厅改变，重置选菜器
     this.setData({
       isClick:0,
       autoplay:false,
       msg:"不行，换一个"
     })
   },
-  close:function () {
+
+  close:function () {  //关闭菜品详情弹窗
     this.setData({
       showDisk:false,
       autoplay:false
     })
   },
-  getcurrent:function (e) {
+
+  getcurrent:function (e) {  //获得当前显示的菜品的下标
     this.setData({
       disk:e.detail.current
     })
   },
-  rank:function () {
+
+  rank:function () {    //随机选菜器
     if(this.data.msg!="停止"){
       this.setData({
         speed:20,
@@ -257,19 +264,15 @@ Page({
         isClick:1,
         msg: "停止"
       })
-      // if(!tervaid)
   }
-  else {
-    //this.setData({disk : })
-    // clearInterval(tervaid)
-    //tervaid=0
+  else {     
     let v=0;
     if(!tervaid)tervaid = setInterval(()=>{
       v=this.data.speed*1.15;
       this.setData({
         speed:v
       })
-      if(this.data.speed>=500+parseInt(Math.random()*this.data.length*10)%this.data.length){
+      if(this.data.speed>=200+parseInt(Math.random()*this.data.length*10)%this.data.length){
         this.setData({
           showDisk:true,
           autoplay:false,
@@ -280,32 +283,14 @@ Page({
         clearInterval(tervaid)
         tervaid=0;
       }
-    },100)
+    },120)
     
   }
   }, 
-  // changeRestaurant:function () {
-  //   // console.log(1111)
-  //   // this.setData({
-  //   //   showChangeCampus:true,
-  //   //   customstyle:"max-width:80%;height: 55%;margin-left:10%;margin-top:35%;"
-  //   // })
-  // },
-  // resetpage:function (params) {
-  //   // this.setData({
-  //   //   customstyle:"",
-  //   //   showChangeCampus:false,
-  //   // })
-  // },
 /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    wx.login({
-      success: (res) => {
-        console.log(res)
-      },
-    })
+  onLoad: function (options) {  //加载时请求默认校区餐厅菜单
     wx.request({
       url: app.data.baseUrl+"/frontpage/draw_dishes",
       data:{
@@ -323,9 +308,6 @@ Page({
         
       }
     })
-    // this.setData({
-    //   hhh:'2222'
-    // })
   },
 
   /**
@@ -340,7 +322,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function () {  //重置菜品选择器和获取当前时间
     this.setData({
       isClick:0,
       msg:"其它"
