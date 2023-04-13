@@ -9,6 +9,10 @@
       </view>
   </view>
   <view style="margin-top: 15%;border-radius: 10rpx;background-color: #ffffff;box-shadow: 0 3rpx rgb(230,230,230),0 -3rpx rgb(230,230,230);">
+    <view style="font: small-caps bold 24px/1 sans-serif;height: 60rpx;padding: 0%;background-color: #ffffff;width: 100%;text-align: left;justify-content: center;font-size: 40rpx;" bindtap="mylikes">
+       <image style="height: 40rpx;width: 40rpx;margin-top: 1%;" src="../../image/帮助.png"/> 我赞过的
+       <image style="height: 40rpx;width: 40rpx;margin-top: 1%;float: right;" src="../../image/chevron_right.png" />
+    </view>
     <view style="font: small-caps bold 24px/1 sans-serif;height: 60rpx;padding: 0%;background-color: #ffffff;width: 100%;text-align: left;justify-content: center;font-size: 40rpx;" bindtap="about">
        <image style="height: 40rpx;width: 40rpx;margin-top: 1%;" src="../../image/帮助.png"/> 关于
        <image style="height: 40rpx;width: 40rpx;margin-top: 1%;float: right;" src="../../image/chevron_right.png" />
