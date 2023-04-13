@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/menu/menu",
     "pages/person/person",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/mylikes/mylikes"
   ],
   "window":{
     "backgroundTextStyle":"light",
