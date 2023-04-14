@@ -28,8 +28,7 @@
     </view>
     <view class="mid">
       <view class="topnav">
-        <view bindtap="select_floor" wx:for="{{floor}}" id="{{canteen}}{{index}}" data-current="{{index}}"
-        class="{{currentTab==index ? 'on' : ''}}">{{item}}</view>
+        <view bindtap="select_floor" wx:for="{{floor}}" id="{{canteen}}{{index}}" data-current="{{index}}" class="{{currentTab==index ? 'on' : ''}}">{{item}}</view>
       </view>
       <scroll-view scroll-y="true" style="height: {{scrollHeight-30}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
         <swiper class="swiper" current="{{currentTab}}" bindchange="change_swiper">
