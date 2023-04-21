@@ -2,23 +2,25 @@
 <view id="body">
   <!-- 滚动餐厅选择器 -->
   <view id="header">
-     <picker bindtap="change" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange"
+     <picker style="width: 100%;" bindtap="change" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange"
       value="{{multiIndex}}" range="{{multiArray}}">
-      <view style="font-size: 40rpx;height: 80rpx;justify-content: center;display: flex;">
-        <view style="flex: auto;margin-top: auto;">当前选择：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}} </view>
-        <view style="display: inline-block;flex: auto;font-style: italic;color: gray;margin-top: auto;">{{" —切换"}}</view>
+      <view style="font-size: 32rpx;height:60rpx;width: 100%;margin-top: 15rpx;">
+        <image style="max-width: 28rpx;margin-left: 2%;margin-right: 5%;" src="../../image/localtion.jpg" mode="widthFix"/>
+        <view style="display:inline-block;width: max-content;">当前选择：{{multiArray[0][multiIndex[0]]}}--{{multiArray[1][multiIndex[1]]}} </view>
+        <view style="display: inline-block;position: absolute;right: 90rpx;color:rgb(232, 151, 59);">切换</view>
+        <image style="max-width: 28rpx;margin-right: 18rpx;margin-top: 1.2%;float: right;" src="../../image/jump.jpg" mode="widthFix"/>
       </view>
      </picker>
   </view>
 
   <!-- 菜品选择器 -->
   <view style="margin: auto;max-width: 70%;margin-top: 50%;">
-    <view style="text-align: center;font-size: 50rpx;">{{now}}{{choice}}</view>
+    <view style="text-align: center;font: small-caps bold 50rpx sans-serif;">{{now}}{{choice}}</view>
     <swiper wx:if="{{isClick}}" style="text-align: center;font-size: 50rpx;margin-top: 12%;max-height:30px;overflow: hidden;" vertical="true" autoplay="{{autoplay}}" interval="{{speed}}" duration="180" circular="true" bindchange="getcurrent">
       <swiper-item style="height: 100px;" wx:for="{{a}}" >{{item.name}}</swiper-item>
     </swiper>
     <view style="display: flex;margin-top: 15%;">
-      <button wx:if="{{isClick==0||isClick==2}}" bindtap="rank" style="flex: auto;max-width: max-content;background-color: lightsalmon;">开始</button>
+      <button wx:if="{{isClick==0||isClick==2}}" bindtap="rank" style="flex: auto;max-width:200rpx;height: 80rpx;background-color: rgb(253,141,3);border-radius: 38rpx;">开始</button>
         <button wx:if="{{isClick==1}}"  bindtap="rank" style="flex: auto;max-width: max-content;background-color: lightgreen;">{{msg}}</button>
     </view>
   </view>
@@ -36,9 +38,9 @@
     <view  style="margin: auto;margin-top: 20%;max-width: 70%;border-radius: 50rpx;border: 20rpx solid lightcoral;">
       <image></image>
       <view style="border-top: 10rpx solid lightgray;height: 300rpx;">
-        <view style="font-size: 60rpx;text-align: center;">{{a[disk].name+" "+a[disk].price}}</view>
-        <view style="font-size: 60rpx;text-align: center;">位置：{{a[disk].possition}}</view>
-        <view style="font-size: xx-large;">标签：<text wx:for="{{a[disk].lable}}" style="display: inline;margin-right: 40rpx;font-size: 60rpx;">{{item}}</text></view>
+        <view style="font-size: 60rpx;text-align: center;">{{a[disk].name+" "+a[disk].price+"￥"}}</view>
+        <view style="font-size: 60rpx;text-align: center;">位置：{{a[disk].position}}</view>
+        <view style="font-size: xx-large;">标签：<text wx:for="{{a[disk].lables}}" style="display: inline;margin-right: 40rpx;font-size: 60rpx;">{{item}}</text></view>
       </view>
     </view>
     <view style="display: flex;margin: auto;margin-top: 10%;max-width: 75%;">
