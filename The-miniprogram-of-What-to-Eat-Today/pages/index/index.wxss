@@ -1,7 +1,11 @@
 /**index.wxss**/
 #header{
+  margin: auto;
+  margin-top: 20rpx;
   height: 15%;
   display: flex;
+  border-radius: 10rpx;
   flex-direction: row;
-  box-shadow: 0px 4rpx darkgray;
+  box-shadow: 0px 6rpx 10rpx 5rpx rgb(220,220,220);
+  max-width: 90%;
 }
