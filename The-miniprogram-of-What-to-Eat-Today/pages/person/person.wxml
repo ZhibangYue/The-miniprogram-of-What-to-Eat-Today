@@ -1,19 +1,19 @@
 <view style="margin: auto;max-width: 70%;">
-  <view style="margin-top: 5%;display: flex;height: 150rpx;" bindtap="resetavatar">
+  <view style="margin-top: 5%;display: flex;height: 150rpx;"  bindtap="resetavatar" >
     <image src="{{avatarUrl}}" style="border: 2rpx solid rgba(0,0,0,25%);margin: 0%;border-radius: 50%;margin-top: 15rpx;margin-right: 1.5%;height: 120rpx;width: 120rpx;"></image>
     <view style="background-color: #ffffff;width: 75%;height: 90%;margin-top: 2.5%;border-radius: 30rpx;">
       <view wx:if="{{nickname!=''}}" style="margin-left: 30rpx;margin-top: 30rpx;font: bold;font-size: 40rpx;">{{nickname}}</view>
       <view wx:else="" style="margin-left: 30rpx;margin-top: 30rpx;font: bold;font-size: 40rpx;">点击设置昵称</view>
-      <view wx:if="{{signnature!=''}}" style="margin-left: 30rpx;font-size: 20rpx;color: rgb(130,130,130);">{{signnature}}</view>
+      <view wx:if="{{signnature!=''}}" style="margin-left: 30rpx;font-size: 20rpx;color: rgb(130,130,130);">{{signature}}</view>
       <view wx:else="" style="margin-left: 30rpx;font-size: 25rpx;font-style: italic;color: rgb(100,100,100);">还没有设置个性签名</view>
-      </view>
+    </view>
   </view>
   <view style="margin-top: 15%;border-radius: 20rpx;background-color: #ffffff;box-shadow: 0 3rpx 10rpx 8rpx rgb(230,230,230),0 -3rpx 10rpx 8rpx  rgb(230,230,230);">
-    <view style="border-bottom: 4rpx solid rgb(220,220,220);font: small-caps bold 24px/1 sans-serif;height: 63rpx;margin-top:10rpx;padding: 0%;background-color: #ffffff;width: 100%;text-align: left;justify-content: center;font-size: 40rpx;" bindtap="mylikes">
+    <view style="border-radius: 20rpx;border-bottom: 4rpx solid rgb(220,220,220);font: small-caps bold 24px/1 sans-serif;height: 63rpx;margin-top:10rpx;padding: 0%;background-color: #ffffff;width: 100%;text-align: left;justify-content: center;font-size: 40rpx;" bindtap="mylikes">
        <image style="height: 40rpx;width: 40rpx;margin-top: 1%;" src="../../image/help.png"/> 我赞过的
        <image style="height: 40rpx;width: 40rpx;margin-top: 1%;float: right;" src="../../image/chevron_right.png" />
     </view>
-    <view style="font: small-caps bold 24px/1 sans-serif;height: 60rpx;padding: 0%;margin-top: 10rpx;background-color: #ffffff;width: 100%;text-align: left;justify-content: center;font-size: 40rpx;" bindtap="about">
+    <view style="border-radius: 20rpx;font: small-caps bold 24px/1 sans-serif;height: 60rpx;padding: 0%;margin-top: 10rpx;background-color: #ffffff;width: 100%;text-align: left;justify-content: center;font-size: 40rpx;" bindtap="about">
        <image style="height: 40rpx;width: 40rpx;margin-top: 1%;" src="../../image/help.png"/> 关于
        <image style="height: 40rpx;width: 40rpx;margin-top: 1%;float: right;" src="../../image/chevron_right.png" />
     </view>
@@ -32,7 +32,7 @@
       <image src="{{avatarUrl}}" style="margin: 0%;left: 0%;height: 200rpx;width: 200rpx;margin: 0%;margin-bottom: 20%;" mode="widthFix"></image>头像
     </button> 
   <input style="margin-left: 0rpx;margin-top: 10%;width: max-content;background-color:rgb(241,241,243);border-radius: 40rpx;height: 80rpx;width: 100%;" type="nickname" placeholder="输入你的昵称"  model:value="{{nickname}}" />
-  <input style="margin-left: 0rpx;margin-top: 5%;width: max-content;background-color:rgb(241,241,243);border-radius: 40rpx;height: 80rpx;width: 100%;" placeholder="设置你的个性签名"  model:value="{{signnature}}" />
+  <input style="margin-left: 0rpx;margin-top: 5%;width: max-content;background-color:rgb(241,241,243);border-radius: 40rpx;height: 80rpx;width: 100%;" placeholder="设置你的个性签名"  model:value="{{signature}}" />
     </view>
     <button bindtap="close" style="margin-top: 10%;color: white;background-color: rgb(255,139,0);border-radius: 38rpx;width: 80%;">确 认</button>
   </page-container>
