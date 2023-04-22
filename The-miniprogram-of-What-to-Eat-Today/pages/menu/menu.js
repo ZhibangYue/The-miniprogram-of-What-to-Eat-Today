@@ -23,6 +23,7 @@ const floor_dict = {"floor01": ["一楼","二楼","三楼"],
 Page({
   data: {
     msg: 1,
+    lb: 1,
     n: 0,
     loadingData:false,
     canteen:"01",
@@ -30,6 +31,7 @@ Page({
     // 滑动需要
     currentTab:0,
   },
+
   onLoad() {
     let scrollHeight = wx.getSystemInfoSync().windowHeight;
     this.setData({
@@ -47,7 +49,7 @@ Page({
   high(e) {
     console.log(e)
     var a = this.data.msg;
-    a++;
+    a==1?a++:a--;
     this.setData({
       msg: a,
     });
