@@ -1,7 +1,9 @@
 
+const app=getApp()
 Page({
 
   data: {
+    dish:[],
 
   },
   
@@ -9,14 +11,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    console.log(app.globalData.token)
+    wx.request({
+      url: app.data.baseUrl+"/records",
+      header:{
+        Authorization:"Bearer "+app.globalData.token
+      },
+      success: (e)=>{                    
+        if(e.statusCode == 200)
+        {
+          console.log(e.data.data)
+        }
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+    
   },
 
   /**
