@@ -170,13 +170,13 @@ Page({
 
 //-------监听和改变滚动选择器，并请求相应菜名---------
   bindMultiPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    //console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       multiIndex: e.detail.value
     })
   },
   bindMultiPickerColumnChange: function (e) {
-    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    //console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
       multiArray: this.data.multiArray,
       multiIndex: this.data.multiIndex,
@@ -235,7 +235,7 @@ Page({
   },
 
   getcurrent:function (e) {  //获得当前显示的菜品的下标
-    console.log(e.detail.current)
+    //console.log(e.detail.current)
     this.setData({
       disk:e.detail.current
     })
@@ -256,7 +256,8 @@ Page({
               this.setData({
                 disk:0,
                 isget:true,
-                a:e.data.data.dishes_information
+                a:e.data.data.dishes_information,
+                length:e.data.data.dishes_information.length
               })
             }
           }
@@ -310,7 +311,8 @@ Page({
           console.log(e.data.data.dishes_information)
           this.setData({
             disk:0,
-            a:e.data.data.dishes_information
+            a:e.data.data.dishes_information,
+            length:e.data.data.dishes_information.length
           })
         }
         
