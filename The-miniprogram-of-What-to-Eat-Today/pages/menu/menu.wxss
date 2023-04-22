@@ -31,8 +31,6 @@
   flex-direction: row;
   width: 20%;
   background-color: #ffffff;
-  border: 1px solid#888888;
-  
   position: fixed;
 }
 
@@ -41,34 +39,40 @@
   
 }
 .s {
-  width: 100%;
+  width: 95%;
   height: 40px;
-  text-align: center;
-  border-bottom: 1px solid#888888;
-  color: #888888;
+  text-align: start;
+  justify-content: center;
+  color: white;
+  border-end-end-radius: 7px;
+  border-top-right-radius: 7px;
+  background-color: #ffca7e;
+  margin-bottom: 4%;
+  margin-top: 4%;
+  font-family: 黑体;
 }
 
 .s:hover{
-  color: #000000;
-  background-color: #cccccc;
+  color: white;
+  background-color: #ff9d11;
+  
 }
 .topnav {
   position: sticky;
-  background-color: #eeeeee;
-  border: 1px solid#888888;
+  background-color: white;
   display: flex;
   grid-area: right;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   width: 100%;
   height: 30px;
   overflow: hidden;
 }
 .topnav view {
   float: left;
-  display: block;
+  display: flex;
   color: #888888;
-  text-align: center;
+  align-items: space-around;
   padding: 5px 8px;
   text-decoration: none;
 }
@@ -78,8 +82,8 @@
 } */
 
 .on{
-  color: black;
-  border-bottom: 2px solid#888888
+  color: #ffca7e!important;
+  border-bottom: 2px solid#ffca7e
 }
 
 .view-search{
@@ -109,12 +113,13 @@
 .goods{
   margin-left: 0%;
   height: 100px;
-  width: 100%;
-  border: 1px solid#888888;
-
+  width: 95%;
+  border-radius: 8px;
+  margin-bottom: 4%;
+  box-shadow:rgba(149,157,165,0.8) 0px 3px 5px;
 }
 .img{
-  margin-top: 15px;
+  margin-top: 0px;
   height: 70px;
   margin-left: 15px;
   width: 70px;
@@ -137,15 +142,13 @@
 .highp{
   height: 25px;
   width: 25px;
-  right: 0;
+  right: 5%;
   position: absolute;
-  right: 0;
 }
 .button{
   font-size: 12px;
   width: fit-content;
   color: #888888;
-  border: 1px solid #888888;
 }
 .swiper{
   height: 200%;
@@ -160,3 +163,29 @@
   width: 100%;
   height: 300rpx;
 }
+.navigator{
+  position: fixed;
+  z-index: 2;
+  height: 10%;
+  width: 100%;
+}
+.label{ /*做一个书签效果*/
+  position: relative;
+  left: 90%;
+  height: 5%;
+  width: .1%;
+  z-index: 1;
+  height: 0;
+  font-weight: bold;
+  line-height: 0;
+  color: #000;
+  border: 6px solid #888888;
+  border-bottom-color: transparent; /*下边框透明，变成空缺的角*/
+  content: '';
+}
+#orange{
+  border: 6px solid #ff9d11;  
+  border-bottom-color: transparent;
+}
+
+
