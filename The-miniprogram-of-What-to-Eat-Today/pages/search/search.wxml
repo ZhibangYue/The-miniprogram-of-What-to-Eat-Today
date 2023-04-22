@@ -1,0 +1,23 @@
+<view class="body">
+  <view class="view-search">
+    <input class="search-input" maxlength="20" bindinput="inputChange" placeholder-class="search-placeholder" placeholder="搜索" value="{{goods}}"/>
+  </view>
+  <view class="main">
+    <view class="mid">
+      <scroll-view scroll-y="true" style="height: {{scrollHeight}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
+            <view wx:for="123333333333" class="sc">
+              <view class="goods">
+                <image class="img" lazy-load="true" />
+                <view class="name">菜名</view>
+                <view class="tip">
+                  <view class="button" id="floor">上午</view>
+                  <view class="button" id="window">xxx窗口</view>
+                </view>
+                <image class="highp" src="./a.png" mode="aspectFill" bindtap="high" lazy-load="true" id="{{index}}"></image>
+                <view class="high">{{msg}}</view>
+              </view>
+            </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
