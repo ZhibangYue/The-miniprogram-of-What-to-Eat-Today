@@ -2,10 +2,10 @@
   "pages":[
     "pages/index/index",
     "pages/menu/menu",
-    "pages/login/login",
     "pages/person/person",
     "pages/about/about",
-    "pages/mylikes/mylikes"
+    "pages/mylikes/mylikes",
+    "pages/search/search"
   ],
   "window":{
     "backgroundTextStyle":"light",
