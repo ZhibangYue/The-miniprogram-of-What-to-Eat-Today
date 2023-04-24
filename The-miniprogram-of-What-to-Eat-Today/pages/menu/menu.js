@@ -1,6 +1,7 @@
 // index.js
 // 获取应用实例
 const app = getApp()
+const baseurl = app.data.baseUrl
 // 餐厅-楼层，设为常量
 const floor_dict = {"floor01": ["一楼","二楼","三楼"],
 "floor02":["一楼","二楼"],
@@ -40,20 +41,38 @@ Page({
   },
   // 事件处理函数
   select_canteen(e) {
+    let that =this;
     let floor_now = "floor"+e.target.id
     this.setData({
       floor: floor_dict[floor_now],
       canteen: e.target.id,
     })
-  },
-  high(e) {
+    wx.request({
+      url: baseurl + '/dishes',
+      data: {
+        "level": '01',
+        "canteen_id": that.data.canteen
+      },
+      header:{
+        Authorization:"Bearer " + app.globalData.token
+      },
+      method: "GET",
+      success: (res) => {
+        console.log(res)
+      },
+      fail: (err) => {
+        console.log(err)
+      }
+    })
+  }, 
+    high(e) {
     console.log(e)
     var a = this.data.msg;
     a==1?a++:a--;
     this.setData({
       msg: a,
     });
-  },
+  }, 
   // 切换楼层
   select_floor(e){
     // 根据切换的楼层，更改滑动区域标号
@@ -61,6 +80,8 @@ Page({
       currentTab:e.target.dataset.current
     })
   },
+
+
   change_swiper(e){
     this.setData({
       currentTab:e.detail.current

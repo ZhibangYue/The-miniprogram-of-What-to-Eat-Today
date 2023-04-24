@@ -41,8 +41,7 @@
 .s {
   width: 95%;
   height: 40px;
-  text-align: start;
-  justify-content: center;
+  text-align: center;
   color: white;
   border-end-end-radius: 7px;
   border-top-right-radius: 7px;
@@ -50,8 +49,10 @@
   margin-bottom: 4%;
   margin-top: 4%;
   font-family: 黑体;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 .s:hover{
   color: white;
   background-color: #ff9d11;
@@ -119,7 +120,7 @@
   box-shadow:rgba(149,157,165,0.8) 0px 3px 5px;
 }
 .img{
-  margin-top: 0px;
+  margin-top: -20px;
   height: 70px;
   margin-left: 15px;
   width: 70px;
@@ -172,19 +173,17 @@
 .label{ /*做一个书签效果*/
   position: relative;
   left: 90%;
-  height: 5%;
-  width: .1%;
+  height: 15%;
+  width: 0%;
   z-index: 1;
-  height: 0;
   font-weight: bold;
   line-height: 0;
   color: #000;
-  border: 6px solid #888888;
+  border: 8px solid #888888;
   border-bottom-color: transparent; /*下边框透明，变成空缺的角*/
-  content: '';
 }
 #orange{
-  border: 6px solid #ff9d11;  
+  border: 8px solid #ff9d11;  
   border-bottom-color: transparent;
 }
 

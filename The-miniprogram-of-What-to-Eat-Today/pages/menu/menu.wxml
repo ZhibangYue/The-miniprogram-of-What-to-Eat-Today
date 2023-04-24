@@ -11,23 +11,23 @@
 
     <view class="left" bindtap="select_canteen">
       <scroll-view scroll-y="true" style="height: {{scrollHeight}}px;width: 100%;display: flex;">
-        <view class="s" id="01">兴隆山欣园餐厅</view>
-        <view class="s" id="02">兴隆山悦园餐厅</view>
-        <view class="s" id="11">中心齐园餐厅</view>
-        <view class="s" id="21">洪家楼三号餐厅</view>
-        <view class="s" id="22">洪家楼七号餐厅</view>
-        <view class="s" id="23">洪家楼民族餐厅</view>
-        <view class="s" id="31">趵突泉杏园</view>
-        <view class="s" id="41">软件园一餐厅</view>
-        <view class="s" id="42">软件园二餐厅</view>
-        <view class="s" id="51">千佛山西苑</view>
-        <view class="s" id="52">千佛山舜园</view>
-        <view class="s" id="61">青岛晨园</view>
-        <view class="s" id="62">青岛曦园</view>
-        <view class="s" id="71">威海荟园</view>
-        <view class="s" id="72">威海馨园</view>
-        <view class="s" id="73">威海泰园</view>
-        <view class="s" id="74">威海雀园</view>
+        <view class="s" ><view id="01">兴隆山欣园餐厅</view></view>
+        <view class="s"><view id="02">兴隆山悦园餐厅</view></view>
+        <view class="s"><view id="11">中心齐园餐厅</view></view>
+        <view class="s"><view id="21">洪家楼三号餐厅</view></view>
+        <view class="s"><view id="22">洪家楼七号餐厅</view></view>
+        <view class="s"><view id="23">洪家楼民族餐厅</view></view>
+        <view class="s"><view id="31">趵突泉杏园</view></view>
+        <view class="s"><view id="41">软件园一餐厅</view></view>
+        <view class="s"><view id="42">软件园二餐厅</view></view>
+        <view class="s"><view id="51">千佛山西苑</view></view>
+        <view class="s"><view id="52">千佛山舜园</view></view>
+        <view class="s"><view id="61">青岛晨园</view></view>
+        <view class="s"><view id="62">青岛曦园</view></view>
+        <view class="s"><view id="71">威海荟园</view></view>
+        <view class="s"><view id="72">威海馨园</view></view>
+        <view class="s"><view id="73">威海泰园</view></view>
+        <view class="s"><view id="74">威海雀园</view></view>
       </scroll-view>
     </view>
     <view class="mid">
@@ -46,8 +46,6 @@
                   <view class="button" id="floor">上午</view>
                   <view class="button" id="window">xxx窗口</view>
                 </view>
-<!--                 <image class="highp" src="./a.png" mode="aspectFill" bindtap="high" lazy-load="true" id="{{index}}"></image>
-                <view class="high">{{msg}}</view> -->
               </view>
             </view>
           </swiper-item>

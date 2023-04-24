@@ -19,7 +19,7 @@ Page({
   high(e) {
     console.log(e)
     var a = this.data.msg;
-    a++;
+    a==1?a++:a--;
     this.setData({
       msg: a,
     });
