@@ -20,95 +20,111 @@ Page({
     speed:20,
     autoplay:false,
     isget:false,
+    scrollHeight:0,
     a:[{name:"面条",  //测试数据
-        intro:"香香香，香香香",
-        position:"不知道",
+        position:{
+          level:0,
+          window_num:0,
+        },
         price:0,
-        lables:[]
       },
       { name:"鸡蛋",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"油条",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"白菜肉饼",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"豆浆",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"飞机",
-        intro:"硬硬硬，硬硬硬",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"望路羊",
-        intro:"强强强，强强强",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"疯狂星期四",
-        intro:"vivo50!!",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:["贵","没人请"]
       },
       { name:"羊肉汤",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"煎饼果子",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"重庆小面",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"盖浇饭",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"肉夹馍",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"炸酱面",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       },
       { name:"馄饨",
-        intro:"香香香，香香香",
-        position:"不知道",
+      position:{
+        level:0,
+        window_num:0,
+      },
         price:0,
-        lables:[]
       }],
     showDisk:false,
     duration:300,
@@ -243,15 +259,18 @@ Page({
 
   rank:function () {    //随机选菜器
     if(this.data.msg!="停止"){
-        if(!this.data.isget)wx.request({
+        if(!this.data.isget) wx.showLoading({
+          title: '菜品加载中...',
+        }),wx.request({
           url: app.data.baseUrl+"/draw_dishes",
           data:{
             canteen_id:this.data.multiIndex[0]+''+(this.data.multiIndex[1]+1),
             timex:this.data.now[0],
           },
-          success: (e)=>{                    
+          
+          success: (e)=>{               
             if(e.statusCode == 200)
-            {
+            { wx.hideLoading()
               console.log(e.data.data.dishes_information)
               this.setData({
                 disk:0,
@@ -259,10 +278,19 @@ Page({
                 a:e.data.data.dishes_information,
                 length:e.data.data.dishes_information.length
               })
+              this.setData({
+                speed:20,
+                autoplay:true,
+                showDisk:false,
+                choice:"吃什么？",
+                isClick:1,
+                msg: "停止",
+                isget:true
+                })
             }
           }
         })
-        this.setData({
+        else this.setData({
               speed:20,
               autoplay:true,
               showDisk:false,
@@ -299,6 +327,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {  //加载时请求默认校区餐厅菜单
+    let scrollHeight = wx.getSystemInfoSync().windowHeight;
+    this.setData({
+      scrollHeight: scrollHeight * 0.9
+    })
     wx.request({
       url: app.data.baseUrl+"/draw_dishes",
       data:{
