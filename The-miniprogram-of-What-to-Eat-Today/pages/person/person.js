@@ -175,7 +175,7 @@ Page({
         success: (res) => {
           if (res.code) {
             wx.request({
-              url: app.data.baseUrl + '/get_token',
+              url: app.data.baseUrl + '/get-token',
               data: {
                 code: res.code
               },

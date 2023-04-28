@@ -6,8 +6,8 @@ Page({
     msg: 1,
     n: 0,
     loadingData:false,
-    currentTab:0,
     goods:'',
+    dishes:[],
   },
   onLoad() {
     let scrollHeight = wx.getSystemInfoSync().windowHeight;
@@ -24,18 +24,7 @@ Page({
       msg: a,
     });
   },
-  // 切换楼层
-  select_floor(e){
-    // 根据切换的楼层，更改滑动区域标号
-    this.setData({
-      currentTab:e.target.dataset.current
-    })
-  },
-  change_swiper(e){
-    this.setData({
-      currentTab:e.detail.current
-    })
-  },
+
   // 对对应菜品点赞
   like() {
     // 先尝试从缓存中读取token，判断用户身份
@@ -114,55 +103,17 @@ Page({
       })
     }
   },
-  scrollToLower: function(e) {
-    var that=this;
-    console.info('scrollToLower', e);
-    
-    if (this.data.loadingData) {
-      return;
-    }
-    this.setData({
-      loadingData: true
-    });
-    // 加载数据,模拟耗时操作
-    wx.showLoading({
-      title: '数据加载中...',
-    });
-    setTimeout(function() {
-      wx.request({
-        url: 'https://www.baidu.com',
-        success:function(){
-          that.setData({
-            hidden: true,
-            loadingData: false
-          });
-          wx.hideLoading();
-        },
-        fail:function(res){
-          console.log(res)
-        }
-      })
 
-        
-     
-      
-      console.info('上拉数据加载完成.');
-    }, 2000);
-  },
-  scrollToUpper: function(e) {
-    wx.showToast({
-      title: '触顶了...',
-    })
-  },
   inputChange(e) {
+    let that = this;
     const goods = e.currentTarget.dataset.goods;
     this.setData({
         [goods]: e.detail.value
     });
     wx.request({
-      url: 'https://域名ID/index.php',
+      url: app.data.baseUrl + "/search",
       data:{
-        name:e.detail.value,
+        word:e.detail.value,
       },
       header:{  
          'content-type':'application/json'
@@ -171,7 +122,10 @@ Page({
       dataType:'JSON',  
       responseType:'text', 
       success(res){
-          console.log(res);
+          console.log(JSON.parse(res.data).data.dishes_information);
+          that.setData({
+            dishes: JSON.parse(res.data).data.dishes_information
+          })
       },
       fail(){  
           console.log('fail')

@@ -27,10 +27,14 @@ Page({
     lb: 1,
     n: 0,
     loadingData:false,
+    // 食堂左栏
     canteen:"01",
+    // 楼层顶栏
     floor:["一楼","二楼","三楼"],
     // 滑动需要
     currentTab:0,
+    // 菜品信息
+    dishes:[],
   },
 
   onLoad() {
@@ -50,7 +54,7 @@ Page({
     wx.request({
       url: baseurl + '/dishes',
       data: {
-        "level": '01',
+        "level": e.target.id == "11"?'11':'01',
         "canteen_id": that.data.canteen
       },
       header:{
@@ -58,7 +62,10 @@ Page({
       },
       method: "GET",
       success: (res) => {
-        console.log(res)
+        console.log(res.data.data.dishes_information)
+        that.setData({
+          dishes: res.data.data.dishes_information
+        })
       },
       fail: (err) => {
         console.log(err)

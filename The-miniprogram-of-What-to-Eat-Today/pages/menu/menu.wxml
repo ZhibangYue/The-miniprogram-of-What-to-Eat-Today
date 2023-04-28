@@ -37,11 +37,11 @@
       <scroll-view scroll-y="true" style="height: {{scrollHeight-30}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
         <swiper class="swiper" current="{{currentTab}}" bindchange="change_swiper">
           <swiper-item wx:for="{{floor}}">
-            <view wx:for="123333333333" class="sc">
+            <view wx:for="{{dishes}}" class="sc">
               <view class="goods">
                 <view class="label" id="{{msg==1?'':'orange'}}" bindtap="high"></view>
                 <image class="img" lazy-load="true" />
-                <view class="name">菜名</view>
+                <view class="name">{{item.name}}</view>
                 <view class="tip">
                   <view class="button" id="floor">上午</view>
                   <view class="button" id="window">xxx窗口</view>
