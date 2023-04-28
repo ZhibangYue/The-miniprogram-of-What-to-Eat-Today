@@ -136,4 +136,15 @@ Page({
  
     })
 },
+scrollToLower(e){
+  wx.showToast({
+    title: '没有了',
+    icon:"error",
+  })
+},
+scrollToUpper(){
+  wx.showToast({
+    title: '到顶了',
+  })
+}
 })

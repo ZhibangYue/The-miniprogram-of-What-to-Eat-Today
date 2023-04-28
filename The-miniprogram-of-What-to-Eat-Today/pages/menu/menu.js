@@ -46,6 +46,11 @@ Page({
   // 事件处理函数
   select_canteen(e) {
     let that =this;
+    wx.showLoading({
+      title: '数据加载中',
+      mask: 'true',
+
+    })
     let floor_now = "floor"+e.target.id
     this.setData({
       floor: floor_dict[floor_now],
@@ -69,6 +74,9 @@ Page({
       },
       fail: (err) => {
         console.log(err)
+      },
+      complete:() => {
+        wx.hideLoading()
       }
     })
   }, 
@@ -82,16 +90,94 @@ Page({
   }, 
   // 切换楼层
   select_floor(e){
+    var that = this
+    wx.showLoading({
+      title: '数据加载中',
+      mask: 'true'
+    })
     // 根据切换的楼层，更改滑动区域标号
     this.setData({
       currentTab:e.target.dataset.current
+    })
+    let level = e.target.dataset.current+1
+    wx.request({
+      url: baseurl + '/dishes',
+      data: {
+        "level": '0'+level,
+        "canteen_id": that.data.canteen
+      },
+      header:{
+        Authorization:"Bearer " + app.globalData.token
+      },
+      method: "GET",
+      success: (res) => {
+        // 如果没有数据
+        if(res.statusCode==404){
+          wx.showToast({
+            title: '无数据',
+            icon: "error"
+          })
+          that.setData({
+            dishes: [],
+          })
+          return
+        }
+        that.setData({
+          dishes: res.data.data.dishes_information
+        })
+      },
+      fail: (err) => {
+        console.log(err)
+      },
+      complete:() => {
+        wx.hideLoading()
+      }
     })
   },
 
 
   change_swiper(e){
-    this.setData({
+    var that=this
+    wx.showLoading({
+      title: '数据加载中',
+      mask: 'true'
+    })
+    that.setData({
       currentTab:e.detail.current
+    })
+    let level = e.detail.current+1
+    wx.request({
+      url: baseurl + '/dishes',
+      data: {
+        "level": '0'+level,
+        "canteen_id": that.data.canteen
+      },
+      header:{
+        Authorization:"Bearer " + app.globalData.token
+      },
+      method: "GET",
+      success: (res) => {
+        // 如果没有数据
+        if(res.statusCode==404){
+          wx.showToast({
+            title: '无数据',
+            icon: "error"
+          })
+          that.setData({
+            dishes: [],
+          })
+          return
+        }
+        that.setData({
+          dishes: res.data.data.dishes_information
+        })
+      },
+      fail: (err) => {
+        console.log(err)
+      },
+      complete:() => {
+        wx.hideLoading()
+      }
     })
   },
   // 对对应菜品点赞
