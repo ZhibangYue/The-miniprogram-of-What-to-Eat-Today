@@ -163,13 +163,13 @@ Page({
   },
   onLoad: function () {
 
-    // var token = wx.getStorageSync("token");
-    var token = null // 暂时先不使用缓存
+    let token = wx.getStorageSync("token");
+    // var token = null // 暂时先不使用缓存
     if (token) {
       app.globalData.token = token;
-      wx.reLaunch({
-        url: "/pages/index/index"
-      });
+      //wx.reLaunch({
+      //  url: "/pages/index/index"
+      //});
     } else {
       wx.login({
         success: (res) => {
