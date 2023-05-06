@@ -6,7 +6,7 @@ const baseurl = app.data.baseUrl
 const floor_dict = {
   "floor01": ["一楼", "二楼", "三楼"],
   "floor02": ["一楼", "二楼"],
-  "floor11": ["负一楼", "一楼", "二楼", "三楼", "四楼"],
+  "floor11": ["一楼", "二楼", "三楼", "四楼","负一楼"],
   "floor21": ["一楼", "二楼", "三楼"],
   "floor22": ["一楼", "二楼", "三楼"],
   "floor23": ["一楼", "二楼", "三楼"],
@@ -154,10 +154,12 @@ Page({
       page: 1,
     })
     let level = e.target.dataset.current + 1
+    let levelp = '0' + level
+    if(levelp == '05'){levelp = '11'}
     wx.request({
       url: baseurl + '/dishes',
       data: {
-        "level": '0' + level,
+        "level": levelp,
         "canteen_id": that.data.canteen,
         "page": that.data.page,
         "num": that.data.pageSize,
