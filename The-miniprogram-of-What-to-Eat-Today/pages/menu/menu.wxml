@@ -35,16 +35,20 @@
         <view bindtap="select_floor" wx:for="{{floor}}" id="{{canteen}}{{index}}" data-current="{{index}}" class="{{currentTab==index ? 'on' : 'unon'}}">{{item}}</view>
       </view>
       <scroll-view scroll-y="true" style="height: {{scrollHeight-30}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
-        <swiper class="swiper" current="{{currentTab}}" bindchange="change_swiper">
+        <swiper class="swiper" current="{{currentTab}}" bindchange="change_swiper" style="height: {{page*110*10}}px;">
           <swiper-item wx:for="{{floor}}">
             <view wx:for="{{dishes}}" class="sc">
               <view class="goods">
-                <view class="label" id="{{msg==1?'':'orange'}}" bindtap="high"></view>
+                <view class="label" data-dish-id="{{item.dish_id}}" id="{{item.like?'':'orange'}}" bindtap="like"></view>
                 <image class="img" lazy-load="true" />
                 <view class="name">{{item.name}}</view>
                 <view class="tip">
-                  <view class="button" id="floor">上午</view>
-                  <view class="button" id="window">xxx窗口</view>
+                  <view class="button" id="floor">
+                  <view wx:if="{{item.date.morning}}">早饭</view>
+                  <view wx:if="{{item.date.noon}}">午饭</view>
+                  <view wx:if="{{item.date.night}}">晚饭</view>
+                  </view>
+                  <view class="button" id="window">{{item.position.window.window_name}}</view>
                 </view>
               </view>
             </view>

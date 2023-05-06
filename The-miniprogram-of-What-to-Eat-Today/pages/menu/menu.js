@@ -26,6 +26,10 @@ Page({
     msg: 1,
     lb: 1,
     n: 0,
+    // 页数    
+    page:1,
+    // 每页条数
+    pageSize:10,
     loadingData:false,
     // 食堂左栏
     canteen:"01",
@@ -35,6 +39,7 @@ Page({
     currentTab:0,
     // 菜品信息
     dishes:[],
+    id:[]
   },
 
   onLoad() {
@@ -55,12 +60,15 @@ Page({
     this.setData({
       floor: floor_dict[floor_now],
       canteen: e.target.id,
+      page: 1, 
     })
     wx.request({
       url: baseurl + '/dishes',
       data: {
-        "level": e.target.id == "11"?'11':'01',
-        "canteen_id": that.data.canteen
+        "level": '01',
+        "canteen_id": that.data.canteen,
+        "page":that.data.page,
+        "num":that.data.pageSize,
       },
       header:{
         Authorization:"Bearer " + app.globalData.token
@@ -97,14 +105,17 @@ Page({
     })
     // 根据切换的楼层，更改滑动区域标号
     this.setData({
-      currentTab:e.target.dataset.current
+      currentTab:e.target.dataset.current,
+      page: 1, 
     })
     let level = e.target.dataset.current+1
     wx.request({
       url: baseurl + '/dishes',
       data: {
         "level": '0'+level,
-        "canteen_id": that.data.canteen
+        "canteen_id": that.data.canteen,
+        "page":that.data.page,
+        "num":that.data.pageSize,
       },
       header:{
         Authorization:"Bearer " + app.globalData.token
@@ -146,17 +157,21 @@ Page({
       currentTab:e.detail.current
     })
     let level = e.detail.current+1
+    console.log(level)    
     wx.request({
       url: baseurl + '/dishes',
       data: {
         "level": '0'+level,
-        "canteen_id": that.data.canteen
+        "canteen_id": that.data.canteen,
+        "page":that.data.page,
+        "num":that.data.pageSize,
       },
       header:{
         Authorization:"Bearer " + app.globalData.token
       },
       method: "GET",
       success: (res) => {
+        console.log(res)
         // 如果没有数据
         if(res.statusCode==404){
           wx.showToast({
@@ -181,30 +196,36 @@ Page({
     })
   },
   // 对对应菜品点赞
-  like() {
+  like(e) {
     // 先尝试从缓存中读取token，判断用户身份
     let token = wx.getStorageInfo("token")
     // 如果有，则对点赞接口发送点赞请求
     if (token) {
+      if(typeof(e.currentTarget.dataset.dishId)=='string'){
+        console.log(e.currentTarget.dataset.dishId)
+      }
       wx.request({
-        url: app.data.baseUrl + "/likes",
+        url: app.data.baseUrl + "/likes?dish_id="+ e.currentTarget.dataset.dishId,
         method: "PUT",
         data: {
-          "dish_id": 1,
+
         },
         header: {
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + app.globalData.token
         },
         success:function(a){
           200 === a.statusCode ?
            wx.showToast({
-            title: "改名成功！"
+            title: "成功！"
         }) : wx.showToast({
-            title: "改名失败。",
+            title: "失败。",
             icon: "error"
         });
         
         },
+        fail:(err)=>{
+          console.log(err)
+        }
       })
     } else {
       // 如果没有token，先微信登录，请求token
@@ -297,5 +318,45 @@ Page({
     wx.showToast({
       title: '触顶了...',
     })
+  },
+  scrollToLower: function(e) {
+    wx.showLoading({
+      title: '数据加载中',
+      mask: 'true'
+    })
+    let that =this;
+    that.setData({
+      page: that.data.page +1, 
+    }) 
+    let level = that.data.currentTab +1
+    wx.request({
+      url: baseurl + '/dishes',
+      data: {
+        "level": '0'+level,
+        "canteen_id": that.data.canteen,
+        "page":that.data.page,
+        "num":that.data.pageSize,
+      },
+      header:{
+        Authorization:"Bearer " + app.globalData.token
+      },
+      method: "GET",
+      success: (res) => {
+        console.log(res.data.data.dishes_information)
+        console.log(level)
+        let dishes = that.data.dishes
+        dishes=dishes.concat(res.data.data.dishes_information)
+        that.setData({
+          dishes:dishes
+        })
+      },
+      fail: (err) => {
+        console.log(err)
+      },
+      complete:() => {
+        wx.hideLoading()
+      }
+    })
+  }, 
   }
-})
+)

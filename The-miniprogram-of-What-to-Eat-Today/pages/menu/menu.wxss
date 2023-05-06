@@ -116,7 +116,7 @@
   height: 100px;
   width: 95%;
   border-radius: 8px;
-  margin-bottom: 4%;
+  margin-bottom: 10px;
   box-shadow:rgba(149,157,165,0.8) 0px 3px 5px;
 }
 .img{
@@ -148,8 +148,13 @@
 }
 .button{
   font-size: 12px;
-  width: fit-content;
+  width: max-content;
   color: #888888;
+  display: flex;
+  flex-direction: row;
+}
+.button view{
+  width: 40px;
 }
 .swiper{
   height: 200%;
