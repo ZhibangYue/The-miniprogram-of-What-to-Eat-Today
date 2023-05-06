@@ -2,7 +2,7 @@
 App({
   data:{
     //baseUrl:"https://yzb.propranolol.cn/frontpage"
-    baseUrl:"http://127.0.0.1:8000/frontpage"
+    baseUrl:"http://eat.emmmmm.tk/frontpage"
   },
   onLaunch() {
     

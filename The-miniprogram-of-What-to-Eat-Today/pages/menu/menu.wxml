@@ -50,6 +50,7 @@
                   </view>
                   <view class="button" id="window">{{item.position.window.window_name}}</view>
                 </view>
+                <view style="position: absolute;right: 20%;"><image src="../../image/like{{item.like.like?'0':'1'}}.jpeg" style="width: 40rpx;height: 40rpx;"></image><text>{{ item.like.like_num}}</text></view>
               </view>
             </view>
           </swiper-item>
