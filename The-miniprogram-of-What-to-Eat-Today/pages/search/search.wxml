@@ -8,17 +8,10 @@
       <scroll-view scroll-y="true" style="height: {{scrollHeight}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
             <view wx:for="{{dishes}}" class="sc">
               <view class="goods">
-                <view class="label" id="{{msg==1?'':'orange'}}" bindtap="high"></view>
+                <view class="label" id="red" bindtap="high"></view>
                 <image class="img" lazy-load="true" />
                 <view class="name">{{item.name}}</view>
                 <view class="tip">
-                  <view class="button" id="floor">上午</view>
-                  <view class="button" >{{
-                    item.position.level
-                  }}楼</view>
-                  <view class="button" id="window">窗口名：{{
-                    item.position.window_name
-                  }}</view>
                 </view>
               </view>
             </view>

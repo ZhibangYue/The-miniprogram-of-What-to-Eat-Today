@@ -122,7 +122,7 @@ Page({
       dataType:'JSON',  
       responseType:'text', 
       success(res){
-          console.log(JSON.parse(res.data).data.dishes_information);
+          console.log(JSON.parse(res.data).data);
           that.setData({
             dishes: JSON.parse(res.data).data.dishes_information
           })

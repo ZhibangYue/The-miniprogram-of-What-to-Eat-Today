@@ -324,16 +324,14 @@ Page({
       mask: 'true'
     })
     let that = this;
-    that.setData({
-      page: that.data.page + 1,
-    })
+
     let level = that.data.currentTab + 1
     wx.request({
       url: baseurl + '/dishes',
       data: {
         "level": '0' + level,
         "canteen_id": that.data.canteen,
-        "page": that.data.page,
+        "page": that.data.page + 1,
         "num": that.data.pageSize,
       },
       header: {
@@ -341,12 +339,24 @@ Page({
       },
       method: "GET",
       success: (res) => {
+        if(res.statusCode === 404){
+          wx.showToast({
+            title: '没有更多了',
+            icon:'error',
+            duration: 2000,
+            mask:false,
+          })
+          return 
+        }
         console.log(res.data.data.dishes_information)
         console.log(level)
         let dishes = that.data.dishes
         dishes = dishes.concat(res.data.data.dishes_information)
         that.setData({
           dishes: dishes
+        })
+        that.setData({
+          page: that.data.page + 1,
         })
       },
       fail: (err) => {
