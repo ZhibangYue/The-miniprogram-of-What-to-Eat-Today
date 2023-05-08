@@ -136,6 +136,14 @@
   font-size: 12px;
   width: fit-content;
   color: #888888;
+  display: flex;
+  flex-direction: row;
+}
+#floor view{
+  width: 40px;
+}
+#position view{
+  widows: 100px;
 }
 
 .scroll-view_H{
@@ -160,7 +168,7 @@
   border-bottom-color: transparent; /*下边框透明，变成空缺的角*/
   content: '';
 }
-#red{
-  border: 8px solid rgba(230, 51, 51, 0.527);  
+#orange{
+  border: 8px solid #ff9d11;  
   border-bottom-color: transparent;
 }

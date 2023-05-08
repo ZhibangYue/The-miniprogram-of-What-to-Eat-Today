@@ -26,84 +26,77 @@ Page({
   },
 
   // 对对应菜品点赞
-  like() {
+  like(e) {
+    let that = this
+    wx.showLoading({
+      title: '请稍等...',
+    })
+    let index = e.currentTarget.dataset.current
+    let num = that.data.dishes[index].like.like_num
+    let status = that.data.dishes[index].like.like
     // 先尝试从缓存中读取token，判断用户身份
     let token = wx.getStorageInfo("token")
     // 如果有，则对点赞接口发送点赞请求
     if (token) {
       wx.request({
-        url: app.data.baseUrl + "/likes",
+        url: app.data.baseUrl + "/likes?dish_id=" + e.currentTarget.dataset.dishId,
         method: "PUT",
-        data: {
-          "dish_id": 1,
-        },
         header: {
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + app.globalData.token
         },
-        success:function(a){
-          200 === a.statusCode ?
-           wx.showToast({
-            title: "改名成功！"
-        }) : wx.showToast({
-            title: "改名失败。",
-            icon: "error"
-        });
-        
-        },
-      })
-    } else {
-      // 如果没有token，先微信登录，请求token
-      wx.login({
-        success: (res) => {
-          if (res.code) {
-            console.log(res.code)
-            console.log({
-              "student_number": that.data.username,
-              "name": that.data.nickName,
-              "phone": "Unknown",
-              "energy": 0,
-              "id": res.code
+        success: function (a) {
+         if (200 === a.statusCode){ 
+            if (status) {
+              that.setData({
+                ['dishes[' + index + '].like.like_num']: num - 1,
+                ['dishes[' + index + '].like.like']: !status,
+              })
+            }
+            else{
+              that.setData({
+                ['dishes[' + index + '].like.like_num']: num + 1,
+                ['dishes[' + index + '].like.like']: !status,
+              })
+            }
+            wx.hideLoading()
+            wx.showToast({
+              title: "成功！"
             })
-            wx.request({
-              url: app.data.baseUrl + '/signup',
-              method: 'POST',
-              data: {
-                "student_number": that.data.username,
-                "name": that.data.nickName,
-                "phone": "Unknown",
-                "energy": 0,
-                "id": res.code
-              },
-              success: (e) => {
-
-                if (e.statusCode) {
-                  console.log('signup', e)
-                  app.globalData.token = e.data.data.access_token
-                  wx.setStorageSync('token', e.data.data.access_token)
-                  wx.reLaunch({
-                    url: "/pages/main/main"
-                  })
-                }
-              },
-              fail: (err) => {
-                console.log(err)
-                that.setData({
-                  error: "网络故障，请联系工作人员:\n" + err.errno
-                })
-              }
-            })
+          }else{
+            wx.hideLoading()
+            wx.showToast({
+              title: "失败",
+              icon: "error"
+            });
           }
         },
         fail: (err) => {
+          wx.hideLoading()
           console.log(err)
-          that.setData({
-            error: "网络故障，请联系工作人员:\n" + err.errno
-          })
+          wx.showToast({
+            title: "错误",
+            icon: "error"
+          });
         }
       })
     }
   },
+  scrollToLower: function (e) {
+    var that = this;
+    console.info('scrollToLower', e);
 
+    if (this.data.loadingData) {
+      return;
+    }
+    this.setData({
+      loadingData: true
+    });
+    // 加载数据,模拟耗时操作
+    wx.showLoading({
+      title: '数据加载中...',
+    });
+
+  },
   inputChange(e) {
     let that = this;
     const goods = e.currentTarget.dataset.goods;
@@ -116,7 +109,8 @@ Page({
         word:e.detail.value,
       },
       header:{  
-         'content-type':'application/json'
+         'content-type':'application/json',
+         Authorization: "Bearer " + app.globalData.token
       },
       method:'GET',  
       dataType:'JSON',  
