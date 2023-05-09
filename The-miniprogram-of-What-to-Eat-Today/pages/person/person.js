@@ -26,12 +26,13 @@ Page({
     wx.setStorageSync('avatar', avatarUrl)
   },
   close: function () { //关闭设置头像、昵称和个性签名的弹窗，并保存
-    this.login()
+    if(!app.globalData.access_token)this.login() //如果没有token就重新注册
+    else this.changeUserInformation()
     this.setData({
       show: !this.data.show
     })
     wx.setStorageSync('nickname', this.data.nickname)
-    wx.setStorageSync('signature', this.data.signature)
+    wx.setStorageSync('personal_signature', this.data.signature)
   },
   resetavatar: function () { //重新设置头像、昵称和个性签名
     this.setData({
@@ -58,7 +59,7 @@ Page({
     this.setData({
       avatarUrl: wx.getStorageSync('avatar'),
       nickname: wx.getStorageSync('nickname'),
-      signature: wx.getStorageSync('signature')
+      signature: wx.getStorageSync('personal_signature')
     })
     if (this.data.avatarUrl == "") this.setData({
       avatarUrl: defaultAvatarUrl
@@ -97,54 +98,30 @@ Page({
     });
   },
   login: function () {
+    
     var that = this;
-    // if (
-    //   //!this.data.username ||
-    //   !this.data.nickName ||
-    //   //!this.data.username.match(/[0-9]{8,13}/) ||
-    //   this.data.nickName.match(/^\s*$/)) {
-    //   this.setData({
-    //     error: '你确定你的学(工)号或昵称长这样嘛?'
-    //   })
-    //   return;
-    // }
     wx.login({
       success: (res) => {
         if (res.code) {
-          console.log(res.code)
-          console.log({
-            "student_number": that.data.username,
-            "name": that.data.nickName,
-            "phone": "Unknown",
-            "energy": 0,
-            "id": res.code
-          })
+          console.log(res.code,app.globalData.token)
           wx.request({
-            url: app.data.baseUrl + '/signup',
-            method: 'POST',
-            data: {
-              //"student_number": that.data.username,
-              
-              "code":res.code,
-              "username": that.data.nickname,
-              "personal_signature":that.data.signature,
-              //"phone": "Unknown",
-              //"energy": 0,
-              //"id": res.code
+            url: app.data.baseUrl + '/user?user_name='+that.data.nickname+"&&personal_signature="+that.data.signature,
+            method: 'PUT',
+            header:{
+              Authorization:"Bearer "+app.globalData.token
             },
             success: (e) => {
-
               if (e.statusCode) {
-                console.log('signup', e)
-                app.globalData.token = e.data.data.access_token
-                wx.setStorageSync('token', e.data.data.access_token)
+                console.log('changeinformation', e)
+                // app.globalData.token = e.data.data.access_token
+                // wx.setStorageSync('token', e.data.data.access_token)
                 // wx.reLaunch({
                 //   url: "/pages/index/index"
                 // })
               }
             },
             fail: (err) => {
-              console.log(err)
+              console.log("err",err)
               that.setData({
                 error: "网络故障，请联系工作人员:\n" + err.errno
               })
@@ -162,15 +139,25 @@ Page({
 
   },
   onLoad: function () {
-
     let token = wx.getStorageSync("token");
-    // var token = null // 暂时先不使用缓存
-    if (token) {
+    //var token = null 
+    let that=this
+    if (token){
       app.globalData.token = token;
-      //wx.reLaunch({
-      //  url: "/pages/index/index"
-      //});
-    } else {
+      that.setData({
+        avatarUrl: wx.getStorageSync('avatar'),
+        nickname: wx.getStorageSync('nickname'),
+        signature: wx.getStorageSync('personal_signature')
+      })
+      console.log(that.data.nickname,that.data.signature)
+      if (this.data.avatarUrl == "") this.setData({
+        avatarUrl: defaultAvatarUrl
+      })
+      if (this.data.nickname == undefined) this.setData({
+        show: true
+      })
+    }
+    else {
       wx.login({
         success: (res) => {
           if (res.code) {
@@ -182,11 +169,8 @@ Page({
               success: (e) => {
                 if (e.statusCode == 200) {
                   app.globalData.token = e.data.data.access_token
-                  console.log(e.data.data.access_token)
+                  console.log("success",se.data.data.access_token)
                   wx.setStorageSync('token', app.globalData.token)
-                  // wx.reLaunch({
-                  //   url: "/pages/index/index"
-                  // })
                 }
               }
             })
