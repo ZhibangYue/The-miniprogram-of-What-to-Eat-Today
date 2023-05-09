@@ -1,1 +1,148 @@
 /* pages/mylikes/mylikes.wxss */
+.body{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.mid{
+  margin-left: 0%;
+  margin-top: 0%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+}
+.main{
+  position: absolute;
+  top:1%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.view-canteen{
+  position: absolute;
+  
+}
+.s {
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  border-bottom: 1px solid#888888;
+  color: #888888;
+}
+
+.s:hover{
+  color: #000000;
+  background-color: #cccccc;
+}
+.topnav {
+  position: sticky;
+  background-color: #eeeeee;
+  border: 1px solid#888888;
+  display: flex;
+  grid-area: right;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+}
+.topnav view {
+  float: left;
+  display: block;
+  color: #888888;
+  text-align: center;
+  padding: 5px 8px;
+  text-decoration: none;
+}
+/* .topnav view:hover {
+  color: black;
+  border-bottom: 1px solid#888888
+} */
+
+.on{
+  color: black;
+  border-bottom: 2px solid#888888
+}
+
+.view-search{
+  z-index:2;
+  height: 10%;
+  position: fixed;
+}
+
+.search-input {  
+  margin: 20rpx 32rpx;
+  width: 686rpx;
+  height: 50%;
+  -webkit-overflow-scrolling: touch;
+  background: #eeeeee;
+  font-size: 24rpx;
+  color: #1f272a;
+  padding-left: 96rpx;
+  box-sizing: border-box;
+  
+  border-radius: 25px;
+}
+
+.search-placeholder {
+  font-size: 28rpx;
+}
+
+.goods{
+  margin-left: 0%;
+  height: 100px;
+  width: 100%;
+  border: 1px solid#888888;
+
+}
+.img{
+  margin-top: 15px;
+  height: 70px;
+  margin-left: 15px;
+  width: 70px;
+  border: solid#888888;
+}
+.name{
+  font-size: 35rpx;
+  margin-left: 100px;
+  margin-top: -80px;
+}
+.tip{
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+}
+.high{
+  width: 90%;
+  color: red;
+  margin-left: 20rpx;
+  display: inline-block;
+  width: max-content;
+  justify-content: center;
+}
+.highp{
+  position: relative;
+  right: -85%;
+  top:-40px;
+  width: 400rpx;
+}
+.button{
+  font-size: 12px;
+  width: 300rpx;
+  color: #888888;
+  border: 1px solid #888888;
+}
+
+.scroll-view_H{
+  white-space: nowrap;
+}
+
+.scroll-view-item_H{
+  display: inline-block;
+  width: 100%;
+  height: 300rpx;
+}
