@@ -357,42 +357,13 @@ Page({
       success: (res) => {
         if (res.code) {
           console.log(res.code)
-          try{
-            let e=1
-            wx.request({
-              url: app.data.baseUrl + '/signup',
-              method: 'POST',
-              data: {
-                "code":res.code,
-                "username": "__default",
-                "personal_signature":"__default",
-              },
-              success: (e) => {
-                if (e.statusCode==200) {
-                  e=0
-                  console.log('signup', e)
-                  app.globalData.token = e.data.data.access_token
-                  wx.setStorageSync('token', e.data.data.access_token)
-                }
-                
-              },
-              fail: (err) => {
-                console.log(err)
-                that.setData({
-                  error: "网络故障，请联系工作人员:\n" + err.errno
-                })
-              }
-            })
-            throw err
-          }
-          catch(err){
             console.log("---------------------------",res.code)
             wx.request({
               url: app.data.baseUrl+'/get-token?code='+res.code,
               module:'GET',
               success(e){
                 if (e.statusCode==200) {
-                  console.log('signature', e.data.data.user_information.user_personal_signature)
+                  console.log('signature', e.data.data.user_information)
                   app.globalData.token = e.data.data.access_token
                   wx.setStorageSync('token', e.data.data.access_token)
                   if(e.data.data.user_information.user_name!="__default")wx.setStorageSync('nickname', e.data.data.user_information.user_name)
@@ -407,8 +378,8 @@ Page({
               }
             })
           }
-        }
-      },
+        },
+      
       fail: (err) => {
         console.log(err)
         that.setData({
