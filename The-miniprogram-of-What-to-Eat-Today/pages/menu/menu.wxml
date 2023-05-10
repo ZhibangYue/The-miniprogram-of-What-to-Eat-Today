@@ -7,8 +7,6 @@
     </navigator>
   </view>
   <view class="main">
-
-
     <view class="left" bindtap="select_canteen">
       <scroll-view scroll-y="true" style="height: {{scrollHeight}}px;width: 100%;display: flex;">
         <view class="s" ><view id="01">兴隆山欣园餐厅</view></view>
@@ -35,7 +33,7 @@
         <view bindtap="select_floor" wx:for="{{floor}}" id="{{canteen}}{{index}}" data-current="{{index}}" class="{{currentTab==index ? 'on' : 'unon'}}">{{item}}</view>
       </view>
       <scroll-view scroll-y="true" style="height: {{scrollHeight-30}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
-        <swiper class="swiper" current="{{currentTab}}" bindchange="change_swiper" style="height: {{page*110*10}}px;">
+        <swiper class="swiper" current="{{currentTab}}" bindchange="change_swiper" style="height: {{(page-1)*120*10+length*120}}px;">
           <swiper-item wx:for="{{floor}}">
             <view wx:for="{{dishes}}" class="sc">
               <view class="goods">
@@ -49,19 +47,14 @@
                   <view wx:if="{{item.date.night}}">晚饭</view>
                   </view>
                   <view class="button" id="window">{{item.position.window.window_name}}</view>
+                  <view class="button">¥{{item.price}}</view>
                 </view>
                 <view style="position: absolute;right: 8%;"><text style="color: #888888;">{{ item.like.like_num}}</text><image src="../../image/like{{item.like.like?'1':'0'}}.jpeg" style="width: 14px;height: 14px;" data-dish-id="{{item.dish_id}}" data-current="{{index}}" bindtap="like"></image></view>
               </view>
             </view>
           </swiper-item>
-
         </swiper>
-
       </scroll-view>
     </view>
-
   </view>
-
-
-
 </view>

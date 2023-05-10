@@ -5,9 +5,9 @@ Page({
   data: {
     msg: 1,
     n: 0,
-    loadingData:false,
-    goods:'',
-    dishes:[],
+    loadingData: false,
+    goods: '',
+    dishes: [],
   },
   onLoad() {
     let scrollHeight = wx.getSystemInfoSync().windowHeight;
@@ -19,7 +19,7 @@ Page({
   high(e) {
     console.log(e)
     var a = this.data.msg;
-    a==1?a++:a--;
+    a == 1 ? a++ : a--;
     this.setData({
       msg: a,
     });
@@ -35,7 +35,7 @@ Page({
     let num = that.data.dishes[index].like.like_num
     let status = that.data.dishes[index].like.like
     // 先尝试从缓存中读取token，判断用户身份
-    let token = wx.getStorageInfo("token")
+    let token = app.globalData.token
     // 如果有，则对点赞接口发送点赞请求
     if (token) {
       wx.request({
@@ -45,14 +45,13 @@ Page({
           Authorization: "Bearer " + app.globalData.token
         },
         success: function (a) {
-         if (200 === a.statusCode){ 
+          if (200 === a.statusCode) {
             if (status) {
               that.setData({
                 ['dishes[' + index + '].like.like_num']: num - 1,
                 ['dishes[' + index + '].like.like']: !status,
               })
-            }
-            else{
+            } else {
               that.setData({
                 ['dishes[' + index + '].like.like_num']: num + 1,
                 ['dishes[' + index + '].like.like']: !status,
@@ -62,7 +61,7 @@ Page({
             wx.showToast({
               title: "成功！"
             })
-          }else{
+          } else {
             wx.hideLoading()
             wx.showToast({
               title: "失败",
@@ -101,44 +100,52 @@ Page({
     let that = this;
     const goods = e.currentTarget.dataset.goods;
     this.setData({
-        [goods]: e.detail.value
+      [goods]: e.detail.value
     });
     wx.request({
       url: app.data.baseUrl + "/search",
-      data:{
-        word:e.detail.value,
+      data: {
+        word: e.detail.value,
       },
-      header:{  
-         'content-type':'application/json',
-         Authorization: "Bearer " + app.globalData.token
+      header: {
+        'content-type': 'application/json',
+        Authorization: "Bearer " + app.globalData.token
       },
-      method:'GET',  
-      dataType:'JSON',  
-      responseType:'text', 
-      success(res){
-          console.log(JSON.parse(res.data).data);
-          that.setData({
-            dishes: JSON.parse(res.data).data.dishes_information
+      method: 'GET',
+      dataType: 'JSON',
+      responseType: 'text',
+      success(res) {
+        if(404 === res.statusCode){
+          wx.showToast({
+            title: '没找到',
+            icon: 'error',
+            duration: 2000,
           })
+          return
+        }
+        console.log(JSON.parse(res.data).data);
+        that.setData({
+          dishes: JSON.parse(res.data).data.dishes_information
+        })
       },
-      fail(){  
-          console.log('fail')
+      fail() {
+        console.log('fail')
       },
-      complete(){   
-           console.log('complete')   
+      complete() {
+        console.log('complete')
       }
- 
+
     })
-},
-scrollToLower(e){
-  wx.showToast({
-    title: '没有了',
-    icon:"error",
-  })
-},
-scrollToUpper(){
-  wx.showToast({
-    title: '到顶了',
-  })
-}
+  },
+  scrollToLower(e) {
+    wx.showToast({
+      title: '没有了',
+      icon: "error",
+    })
+  },
+  scrollToUpper() {
+    wx.showToast({
+      title: '到顶了',
+    })
+  }
 })

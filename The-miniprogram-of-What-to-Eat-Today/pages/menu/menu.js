@@ -40,7 +40,8 @@ Page({
     currentTab: 0,
     // 菜品信息
     dishes: [],
-    id: []
+    id: [],
+    length: 10,
   },
 
   onLoad() {
@@ -73,7 +74,8 @@ Page({
           return
         }
         this.setData({
-          dishes: res.data.data.dishes_information
+          dishes: res.data.data.dishes_information,
+          length: res.data.data.dishes_information.length,
         })
       },
       fail: (err) => {
@@ -122,7 +124,8 @@ Page({
           return
         }
         that.setData({
-          dishes: res.data.data.dishes_information
+          dishes: res.data.data.dishes_information,
+          length: res.data.data.dishes_information.length,
         })
       },
       fail: (err) => {
@@ -181,7 +184,8 @@ Page({
           return
         }
         that.setData({
-          dishes: res.data.data.dishes_information
+          dishes: res.data.data.dishes_information,
+          length: res.data.data.dishes_information.length,
         })
       },
       fail: (err) => {
@@ -204,10 +208,13 @@ Page({
       currentTab: e.detail.current
     })
     let level = e.detail.current + 1
+    let levelp = '0' + level
+    if(levelp == '05'){levelp = '11'}
+    console.log(levelp)
     wx.request({
       url: baseurl + '/dishes',
       data: {
-        "level": '0' + level,
+        "level": levelp,
         "canteen_id": that.data.canteen,
         "page": that.data.page,
         "num": that.data.pageSize,
@@ -230,7 +237,8 @@ Page({
           return
         }
         that.setData({
-          dishes: res.data.data.dishes_information
+          dishes: res.data.data.dishes_information,
+          length: res.data.data.dishes_information.length,
         })
       },
       fail: (err) => {
@@ -326,10 +334,13 @@ Page({
     let that = this;
 
     let level = that.data.currentTab + 1
+    let levelp = '0'+level
+    if(levelp=='05'){levelp='11'}
+    console.log(level)
     wx.request({
       url: baseurl + '/dishes',
       data: {
-        "level": '0' + level,
+        "level":  levelp,
         "canteen_id": that.data.canteen,
         "page": that.data.page + 1,
         "num": that.data.pageSize,
@@ -339,21 +350,14 @@ Page({
       },
       method: "GET",
       success: (res) => {
-        if(res.statusCode === 404){
-          wx.showToast({
-            title: '没有更多了',
-            icon:'error',
-            duration: 2000,
-            mask:false,
-          })
-          return 
-        }
         console.log(res.data.data.dishes_information)
         console.log(level)
+        let length =res.data.data.dishes_information.length
         let dishes = that.data.dishes
         dishes = dishes.concat(res.data.data.dishes_information)
         that.setData({
-          dishes: dishes
+          dishes: dishes,
+          length :length,
         })
         that.setData({
           page: that.data.page + 1,
