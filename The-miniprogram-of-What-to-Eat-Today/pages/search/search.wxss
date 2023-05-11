@@ -159,14 +159,13 @@
   position: relative;
   left: 90%;
   height: 15%!important;
-  width: .1%;
+  width: 0%;
   z-index: 1;
   font-weight: bold;
   line-height: 0;
   color: #000;
   border: 8px solid #888888;
   border-bottom-color: transparent; /*下边框透明，变成空缺的角*/
-  content: '';
 }
 #orange{
   border: 8px solid #ff9d11;  

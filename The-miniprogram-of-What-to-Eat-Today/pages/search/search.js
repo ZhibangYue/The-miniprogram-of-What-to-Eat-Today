@@ -34,7 +34,7 @@ Page({
     let index = e.currentTarget.dataset.current
     let num = that.data.dishes[index].like.like_num
     let status = that.data.dishes[index].like.like
-    // 先尝试从缓存中读取token，判断用户身份
+    // 先，判断用户身份
     let token = app.globalData.token
     // 如果有，则对点赞接口发送点赞请求
     if (token) {
@@ -83,7 +83,6 @@ Page({
   scrollToLower: function (e) {
     var that = this;
     console.info('scrollToLower', e);
-
     if (this.data.loadingData) {
       return;
     }
@@ -115,11 +114,14 @@ Page({
       dataType: 'JSON',
       responseType: 'text',
       success(res) {
-        if(404 === res.statusCode){
+        if (404 === res.statusCode) {
           wx.showToast({
             title: '没找到',
             icon: 'error',
             duration: 2000,
+          })
+          that.setData({
+            dishes: []
           })
           return
         }
