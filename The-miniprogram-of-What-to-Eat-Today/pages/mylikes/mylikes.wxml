@@ -1,7 +1,7 @@
 <view class="body">
   <view  class="main" >
     <view class="mid">
-      <scroll-view scroll-y="true" style="height: {{scrollHeight}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
+      <scroll-view scroll-y="true" style="height: {{screenHeight+'px'}};" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
             <view wx:for="{{dishlist}}">
               <view class="goods">
                 <image class="img" lazy-load="true" src="{{item.dish_img}}"/>
