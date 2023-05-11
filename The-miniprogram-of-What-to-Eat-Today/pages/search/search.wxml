@@ -23,9 +23,10 @@
                   <view wx:if="{{item.position.level.level==2}}">二楼</view>
                   <view wx:if="{{item.position.level.level==3}}">三楼</view>
                   <view wx:if="{{item.position.level.level==4}}">四楼</view>
-                  <view wx:if="{{item.position.level.level==0}}">负一楼</view>
+                  <view wx:if="{{item.position.level.level==-1}}">负一楼</view>
                   <view>{{item.position.window.window_name}}</view>
                   </view>
+                  <view class="button">¥{{item.price}}</view>
                 </view>
                 <view style="position: absolute;right: 8%;"><text style="color: #888888;">{{ item.like.like_num}}</text><image src="../../image/like{{item.like.like?'1':'0'}}.jpeg" style="width: 14px;height: 14px;" data-dish-id="{{item.dish_id}}" data-current="{{index}}" bindtap="like"></image></view>
               </view>

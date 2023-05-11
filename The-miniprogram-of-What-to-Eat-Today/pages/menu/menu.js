@@ -259,7 +259,7 @@ Page({
     let num = that.data.dishes[index].like.like_num
     let status = that.data.dishes[index].like.like
     // 先尝试从缓存中读取token，判断用户身份
-    let token = wx.getStorageInfo("token")
+    let token = app.globalData.token
     // 如果有，则对点赞接口发送点赞请求
     if (token) {
       wx.request({
