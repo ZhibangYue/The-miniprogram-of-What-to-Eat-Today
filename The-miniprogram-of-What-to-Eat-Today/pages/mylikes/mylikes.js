@@ -12,12 +12,16 @@ Page({
         st:true
       },
     ],
+    screenHeight:0
   },
   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setData({
+      screenHeight:wx.getWindowInfo().windowHeight
+    })
     let that=this
     wx.request({
       url: app.data.baseUrl+"/records",
