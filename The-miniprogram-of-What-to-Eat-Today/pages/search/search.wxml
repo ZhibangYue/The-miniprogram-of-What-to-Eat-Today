@@ -9,7 +9,7 @@
             <view wx:for="{{dishes}}" class="sc">
               <view class="goods">
                 <view class="label" data-dish-id="{{item.dish_id}}"  data-current="{{index}}" id="{{item.like.like?'orange':''}}" bindtap="like"></view>
-                <image class="img" lazy-load="true" />
+                <image class="img" lazy-load="true" src="https://yuming.propranolol.cn{{item.image}}" />
                 <view class="name">{{item.name}}</view>
                 <view class="tip">
                   <view class="button" id="floor">

@@ -73,6 +73,7 @@ Page({
           })
           return
         }
+        console.log(res.data.data.dishes_information)
         this.setData({
           dishes: res.data.data.dishes_information,
           length: res.data.data.dishes_information.length,
@@ -98,6 +99,7 @@ Page({
       floor: floor_dict[floor_now],
       canteen: e.target.id,
       page: 1,
+      currentTab: 0,
     })
     wx.request({
       url: baseurl + '/dishes',
@@ -259,7 +261,7 @@ Page({
     let num = that.data.dishes[index].like.like_num
     let status = that.data.dishes[index].like.like
     // 先尝试从缓存中读取token，判断用户身份
-    let token = app.globalData.token
+    let token = wx.getStorageInfo("token")
     // 如果有，则对点赞接口发送点赞请求
     if (token) {
       wx.request({
