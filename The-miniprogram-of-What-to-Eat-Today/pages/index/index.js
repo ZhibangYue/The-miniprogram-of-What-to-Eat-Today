@@ -21,6 +21,10 @@ Page({
     autoplay:false,
     isget:false,
     scrollHeight:0,
+    level:0,
+    window_name:"",
+    dish_img:"",
+    price:0,
     a:[{name:"面条",  //测试数据
         position:{
           level:0,
@@ -271,7 +275,6 @@ Page({
           success: (e)=>{               
             if(e.statusCode == 200)
             { wx.hideLoading()
-              console.log(e.data.data.dishes_information)
               this.setData({
                 disk:0,
                 isget:true,
@@ -309,13 +312,35 @@ Page({
       })
       if(this.data.speed>=200+parseInt(Math.random()*this.data.a.length*10)%this.data.a.length){
         this.setData({
-          showDisk:true,
           autoplay:false,
           choice:"吃这个！",
-          isClick:2,
-          msg: "不行，换一个"
+          
         })
-        console.log(this.data.disk)
+        let aid=this.data.a[this.data.disk].dish_id
+        console.log(aid)
+        wx.request({
+          url: app.data.baseUrl+"/get-draw-dish",
+          data:{
+            dish_id : aid
+          },
+          success:(e)=>{
+            if(e.statusCode==200){
+              console.log(e.data.data.dishes_information[0])
+              let rest=e.data.data.dishes_information[0]
+              this.setData({
+                dish_img:rest.image,
+                price:rest.price,
+                level:rest.position.level.level,
+                window_name:rest.position.window.window_name,
+                showDisk:true,
+                msg: "不行，换一个",
+                isClick:2,
+              })
+              console.log(this.data.dish_img)
+            }
+          }
+        })
+        
         clearInterval(tervaid)
         tervaid=0;
       }
@@ -356,30 +381,27 @@ Page({
     else wx.login({
       success: (res) => {
         if (res.code) {
-          console.log(res.code)
-            console.log("---------------------------",res.code)
-            wx.request({
-              url: app.data.baseUrl+'/get-token?code='+res.code,
-              module:'GET',
-              success(e){
-                if (e.statusCode==200) {
-                  console.log('signature', e.data.data.user_information)
-                  app.globalData.token = e.data.data.access_token
-                  wx.setStorageSync('token', e.data.data.access_token)
-                  if(e.data.data.user_information.user_name!="__default")wx.setStorageSync('nickname', e.data.data.user_information.user_name)
-                  if(e.data.data.user_personal_signature!="__default")wx.setStorageSync('personal_signature', e.data.data.user_information.user_personal_signature)
-                }
-              },
-              fail: (err) => {
-                console.log(err)
-                that.setData({
-                  error: "网络故障，请联系工作人员:\n" + err.errno
-                })
+          wx.request({
+            url: app.data.baseUrl+'/get-token?code='+res.code,
+            module:'GET',
+            success(e){
+              if (e.statusCode==200) {
+                console.log('signature', e.data.data.user_information)
+                app.globalData.token = e.data.data.access_token
+                wx.setStorageSync('token', e.data.data.access_token)
+                if(e.data.data.user_information.user_name!="__default")wx.setStorageSync('nickname', e.data.data.user_information.user_name)
+                if(e.data.data.user_personal_signature!="__default")wx.setStorageSync('personal_signature', e.data.data.user_information.user_personal_signature)
               }
-            })
-          }
-        },
-      
+            },
+            fail: (err) => {
+              console.log(err)
+              that.setData({
+                error: "网络故障，请联系工作人员:\n" + err.errno
+              })
+            }
+          })
+        }
+      },
       fail: (err) => {
         console.log(err)
         that.setData({
