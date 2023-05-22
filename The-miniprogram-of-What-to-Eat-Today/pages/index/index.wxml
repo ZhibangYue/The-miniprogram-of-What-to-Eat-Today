@@ -19,7 +19,6 @@
     <swiper wx:if="{{isClick}}" style="text-align: center;font-size: 50rpx;margin-top: 40rpx;max-height:60rpx;overflow: hidden;" vertical="true" autoplay="{{autoplay}}" interval="{{speed}}" duration="180" circular="true" bindchange="getcurrent">
       <swiper-item  wx:for="{{a}}" >{{item.name}}</swiper-item>
     </swiper>
-    
     <view style="display: flex;margin-top: 60rpx;">
       <button wx:if="{{isClick==0||isClick==2}}" bindtap="rank" style="font-size: 30rpx;flex: auto;max-width:200rpx;max-height:max-contents;background-color: rgb(253,141,3);border-radius: 38rpx;">开始</button>
         <button wx:if="{{isClick==1}}"  bindtap="rank" style="flex: auto;max-width: 160rpx;background-color: lightgreen;font-size: 30rpx;border-radius:15rpx;">{{msg}}</button>
@@ -36,11 +35,13 @@
     round="true"
   >
     <view wx:if="{{showDisk}}">
-    <view  style="margin: auto;margin-top: 20%;max-width: 70%;border-radius: 50rpx;border: 20rpx solid lightcoral;">
-      <image style="height: 300rpx;"></image>
+    <view  style="margin: auto;margin-top: 15%;max-width: 70%;border-radius: 50rpx;border: 20rpx solid lightcoral;">
+      <view style="max-width: max-content;margin: auto;">
+        <image style="height: 400rpx;width: 400rpx;" src="https://eat.emmmmm.tk{{dish_img}}"></image>
+      </view>
       <view style="border-top: 10rpx solid lightgray;height: 200rpx;">
-        <view style="font-size: 40rpx;text-align: center;">{{a[disk].name+" "+a[disk].price+"￥"}}</view>
-        <view style="font-size: 28rpx;text-align: center;">位置：{{a[disk].position.level+" 楼 "+a[disk].position.window_num+ " 号窗口"}}</view>
+        <view style="font-size: 40rpx;text-align: center;">{{a[disk].name+" "+price+"￥"}}</view>
+        <view style="font-size: 28rpx;text-align: center;">位置：{{level+" 楼 "+window_name+ " 号窗口"}}</view>
       </view>
     </view>
     <view style="display: flex;margin: auto;margin-top: 10%;max-width: 75%;">
