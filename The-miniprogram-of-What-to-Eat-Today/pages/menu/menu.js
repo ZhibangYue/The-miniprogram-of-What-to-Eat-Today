@@ -65,7 +65,7 @@ Page({
         // 如果没有数据
         if (res.statusCode == 404) {
           wx.showToast({
-            title: '无数据',
+            title: '敬情期待',
             icon: "error"
           })
           this.setData({
@@ -117,7 +117,7 @@ Page({
         // 如果没有数据
         if (res.statusCode == 404) {
           wx.showToast({
-            title: '无数据',
+            title: '敬请期待',
             icon: "error"
           })
           that.setData({
@@ -177,7 +177,7 @@ Page({
         // 如果没有数据
         if (res.statusCode == 404) {
           wx.showToast({
-            title: '无数据',
+            title: '敬请期待',
             icon: "error"
           })
           that.setData({
@@ -230,7 +230,7 @@ Page({
         // 如果没有数据
         if (res.statusCode == 404) {
           wx.showToast({
-            title: '无数据',
+            title: '敬请期待',
             icon: "error"
           })
           that.setData({
@@ -285,9 +285,16 @@ Page({
               })
             }
             wx.hideLoading()
-            wx.showToast({
-              title: "成功！"
-            })
+            if(status == 1){
+              wx.showToast({
+              title: "取消点赞成功！"
+            }) 
+            }else{
+              wx.showToast({
+                title: "点赞成功！"
+              }) 
+            }
+
           }else{
             wx.hideLoading()
             wx.showToast({

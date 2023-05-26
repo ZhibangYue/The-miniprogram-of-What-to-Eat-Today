@@ -33,11 +33,12 @@
         <view bindtap="select_floor" wx:for="{{floor}}" id="{{canteen}}{{index}}" data-current="{{index}}" class="{{currentTab==index ? 'on' : 'unon'}}">{{item}}</view>
       </view>
       <scroll-view scroll-y="true" style="height: {{scrollHeight-30}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
+      <view class="no"><view class="no-a">敬请期待</view></view>
         <swiper class="swiper" current="{{currentTab}}" bindchange="change_swiper" style="height: {{(page-1)*120*10+length*120}}px;">
           <swiper-item wx:for="{{floor}}">
             <view wx:for="{{dishes}}" class="sc">
               <view class="goods">
-                <view class="label" data-dish-id="{{item.dish_id}}"  data-current="{{index}}" id="{{item.like.like?'orange':''}}" bindtap="like"></view>
+                <view class="label" data-dish-id="{{item.dish_id}}"  data-current="{{index}}"  ></view>
                 <image class="img" lazy-load="true" src="https://eat.emmmmm.tk{{item.image}}"/>
                 <view class="name">{{item.name}}</view>
                 <view class="tip">

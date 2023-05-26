@@ -21,10 +21,6 @@ Page({
     autoplay:false,
     isget:false,
     scrollHeight:0,
-    level:0,
-    window_name:"",
-    dish_img:"",
-    price:0,
     a:[{name:"面条",  //测试数据
         position:{
           level:0,
@@ -275,6 +271,7 @@ Page({
           success: (e)=>{               
             if(e.statusCode == 200)
             { wx.hideLoading()
+              console.log(e.data.data.dishes_information)
               this.setData({
                 disk:0,
                 isget:true,
@@ -290,13 +287,6 @@ Page({
                 msg: "停止",
                 isget:true
                 })
-            }
-            else {
-              wx.hideLoading()
-              wx.showToast({
-                title: '无数据',
-                icon: "error"
-              })
             }
           }
         })
@@ -319,35 +309,13 @@ Page({
       })
       if(this.data.speed>=200+parseInt(Math.random()*this.data.a.length*10)%this.data.a.length){
         this.setData({
+          showDisk:true,
           autoplay:false,
           choice:"吃这个！",
-          
+          isClick:2,
+          msg: "不行，换一个"
         })
-        let aid=this.data.a[this.data.disk].dish_id
-        console.log(aid)
-        wx.request({
-          url: app.data.baseUrl+"/get-draw-dish",
-          data:{
-            dish_id : aid
-          },
-          success:(e)=>{
-            if(e.statusCode==200){
-              console.log(e.data.data.dishes_information[0])
-              let rest=e.data.data.dishes_information[0]
-              this.setData({
-                dish_img:rest.image,
-                price:rest.price,
-                level:rest.position.level.level,
-                window_name:rest.position.window.window_name,
-                showDisk:true,
-                msg: "不行，换一个",
-                isClick:2,
-              })
-              console.log(this.data.dish_img)
-            }
-          }
-        })
-        
+        console.log(this.data.disk)
         clearInterval(tervaid)
         tervaid=0;
       }
@@ -384,33 +352,34 @@ Page({
       }
     })
     let token=wx.getStorageSync('token')
-    let updatetime=wx.getStorageSync('updatetime')
-    if(token&&new Date().getTime()-updatetime<=1000*60*60*24*10)app.globalData.token=token;
+    if(token)app.globalData.token=token;
     else wx.login({
       success: (res) => {
         if (res.code) {
-          wx.request({
-            url: app.data.baseUrl+'/get-token?code='+res.code,
-            module:'GET',
-            success(e){
-              if (e.statusCode==200) {
-                console.log('signature', e.data.data.user_information)
-                app.globalData.token = e.data.data.access_token
-                wx.setStorageSync('token', e.data.data.access_token)
-                wx.setStorageSync('updatetime', new Date().getTime())
-                if(e.data.data.user_information.user_name!="__default")wx.setStorageSync('nickname', e.data.data.user_information.user_name)
-                if(e.data.data.user_personal_signature!="__default")wx.setStorageSync('personal_signature', e.data.data.user_information.user_personal_signature)
+          console.log(res.code)
+            console.log("---------------------------",res.code)
+            wx.request({
+              url: app.data.baseUrl+'/get-token?code='+res.code,
+              module:'GET',
+              success(e){
+                if (e.statusCode==200) {
+                  console.log('signature', e.data.data.user_information)
+                  app.globalData.token = e.data.data.access_token
+                  wx.setStorageSync('token', e.data.data.access_token)
+                  if(e.data.data.user_information.user_name!="__default")wx.setStorageSync('nickname', e.data.data.user_information.user_name)
+                  if(e.data.data.user_personal_signature!="__default")wx.setStorageSync('personal_signature', e.data.data.user_information.user_personal_signature)
+                }
+              },
+              fail: (err) => {
+                console.log(err)
+                that.setData({
+                  error: "网络故障，请联系工作人员:\n" + err.errno
+                })
               }
-            },
-            fail: (err) => {
-              console.log(err)
-              that.setData({
-                error: "网络故障，请联系工作人员:\n" + err.errno
-              })
-            }
-          })
-        }
-      },
+            })
+          }
+        },
+      
       fail: (err) => {
         console.log(err)
         that.setData({
