@@ -384,9 +384,9 @@ Page({
       }
     })
     let token=wx.getStorageSync('token')
-//     if(token)app.globalData.token=token;
-//     else 
-    wx.login({
+    let updatetime=wx.getStorageSync('updatetime')
+    if(token&&new Date().getTime()-updatetime<=1000*60*60*24*10)app.globalData.token=token;
+    else wx.login({
       success: (res) => {
         if (res.code) {
           wx.request({
@@ -397,6 +397,7 @@ Page({
                 console.log('signature', e.data.data.user_information)
                 app.globalData.token = e.data.data.access_token
                 wx.setStorageSync('token', e.data.data.access_token)
+                wx.setStorageSync('updatetime', new Date().getTime())
                 if(e.data.data.user_information.user_name!="__default")wx.setStorageSync('nickname', e.data.data.user_information.user_name)
                 if(e.data.data.user_personal_signature!="__default")wx.setStorageSync('personal_signature', e.data.data.user_information.user_personal_signature)
               }
