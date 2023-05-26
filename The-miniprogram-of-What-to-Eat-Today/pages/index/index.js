@@ -384,8 +384,9 @@ Page({
       }
     })
     let token=wx.getStorageSync('token')
-    if(token)app.globalData.token=token;
-    else wx.login({
+//     if(token)app.globalData.token=token;
+//     else 
+    wx.login({
       success: (res) => {
         if (res.code) {
           wx.request({
