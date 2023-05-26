@@ -291,6 +291,13 @@ Page({
                 isget:true
                 })
             }
+            else {
+              wx.hideLoading()
+              wx.showToast({
+                title: '无数据',
+                icon: "error"
+              })
+            }
           }
         })
         else this.setData({
