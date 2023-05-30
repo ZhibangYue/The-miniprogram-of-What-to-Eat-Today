@@ -167,6 +167,7 @@ Page({
                 code: res.code
               },
               success: (e) => {
+                console.log(e)
                 if (e.statusCode == 200) {
                   app.globalData.token = e.data.data.access_token
                   console.log("success",se.data.data.access_token)
