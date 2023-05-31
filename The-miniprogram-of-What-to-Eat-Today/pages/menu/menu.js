@@ -6,7 +6,7 @@ const baseurl = app.data.baseUrl
 const floor_dict = {
   "floor01": ["一楼", "二楼", "三楼"],
   "floor02": ["一楼", "二楼"],
-  "floor11": ["一楼", "二楼", "三楼", "四楼","负一楼"],
+  "floor12": ["一楼", "二楼", "三楼", "四楼","负一楼"],
   "floor21": ["一楼", "二楼", "三楼"],
   "floor22": ["一楼", "二楼", "三楼"],
   "floor23": ["一楼", "二楼", "三楼"],
@@ -42,6 +42,7 @@ Page({
     dishes: [],
     id: [],
     length: 10,
+    a:1,
   },
 
   onLoad() {
@@ -65,7 +66,7 @@ Page({
         // 如果没有数据
         if (res.statusCode == 404) {
           wx.showToast({
-            title: '敬情期待',
+            title: '无数据',
             icon: "error"
           })
           this.setData({
@@ -81,6 +82,9 @@ Page({
       },
       fail: (err) => {
         console.log(err)
+        this.setData({
+          a :0,
+        })
       },
       complete: () => {
         wx.hideLoading()
@@ -117,7 +121,7 @@ Page({
         // 如果没有数据
         if (res.statusCode == 404) {
           wx.showToast({
-            title: '敬请期待',
+            title: '无数据',
             icon: "error"
           })
           that.setData({
@@ -160,7 +164,7 @@ Page({
     })
     let level = e.target.dataset.current + 1
     let levelp = '0' + level
-    if(levelp == '05'){levelp = '11'}
+    if(levelp == '05'){levelp = '-1'}
     wx.request({
       url: baseurl + '/dishes',
       data: {
@@ -177,7 +181,7 @@ Page({
         // 如果没有数据
         if (res.statusCode == 404) {
           wx.showToast({
-            title: '敬请期待',
+            title: '无数据',
             icon: "error"
           })
           that.setData({
@@ -211,7 +215,7 @@ Page({
     })
     let level = e.detail.current + 1
     let levelp = '0' + level
-    if(levelp == '05'){levelp = '11'}
+    if(levelp == '05'){levelp = '-1'}
     console.log(levelp)
     wx.request({
       url: baseurl + '/dishes',
@@ -230,7 +234,7 @@ Page({
         // 如果没有数据
         if (res.statusCode == 404) {
           wx.showToast({
-            title: '敬请期待',
+            title: '无数据',
             icon: "error"
           })
           that.setData({
@@ -285,16 +289,9 @@ Page({
               })
             }
             wx.hideLoading()
-            if(status == 1){
-              wx.showToast({
-              title: "取消点赞成功！"
-            }) 
-            }else{
-              wx.showToast({
-                title: "点赞成功！"
-              }) 
-            }
-
+            wx.showToast({
+              title: "成功！"
+            })
           }else{
             wx.hideLoading()
             wx.showToast({
@@ -344,7 +341,7 @@ Page({
 
     let level = that.data.currentTab + 1
     let levelp = '0'+level
-    if(levelp=='05'){levelp='11'}
+    if(levelp=='05'){levelp='-1'}
     console.log(level)
     wx.request({
       url: baseurl + '/dishes',

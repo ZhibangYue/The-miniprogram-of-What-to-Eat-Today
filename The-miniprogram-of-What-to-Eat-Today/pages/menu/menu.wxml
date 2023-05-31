@@ -11,7 +11,7 @@
       <scroll-view scroll-y="true" style="height: {{scrollHeight}}px;width: 100%;display: flex;">
         <view class="s" ><view id="01">兴隆山欣园餐厅</view></view>
         <view class="s"><view id="02">兴隆山悦园餐厅</view></view>
-        <view class="s"><view id="11">中心齐园餐厅</view></view>
+        <view class="s"><view id="12">中心齐园餐厅</view></view>
         <view class="s"><view id="21">洪家楼三号餐厅</view></view>
         <view class="s"><view id="22">洪家楼七号餐厅</view></view>
         <view class="s"><view id="23">洪家楼民族餐厅</view></view>
@@ -33,13 +33,13 @@
         <view bindtap="select_floor" wx:for="{{floor}}" id="{{canteen}}{{index}}" data-current="{{index}}" class="{{currentTab==index ? 'on' : 'unon'}}">{{item}}</view>
       </view>
       <scroll-view scroll-y="true" style="height: {{scrollHeight-30}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
-      <view class="no"><view class="no-a">敬请期待</view></view>
+        <view class="no" wx:if="{{a}} == 0"><view class="no-a">敬请期待</view></view>
         <swiper class="swiper" current="{{currentTab}}" bindchange="change_swiper" style="height: {{(page-1)*120*10+length*120}}px;">
           <swiper-item wx:for="{{floor}}">
             <view wx:for="{{dishes}}" class="sc">
               <view class="goods">
-                <view class="label" data-dish-id="{{item.dish_id}}"  data-current="{{index}}"  ></view>
-                <image class="img" lazy-load="true" src="https://eat.emmmmm.tk{{item.image}}"/>
+                <view class="label" data-dish-id="{{item.dish_id}}"  data-current="{{index}}" id="{{item.like.like?'orange':''}}" bindtap="like"></view>
+                <image class="img" lazy-load="true" src="https://yuming.propranolol.cn{{item.image}}"/>
                 <view class="name">{{item.name}}</view>
                 <view class="tip">
                   <view class="button" id="floor">
@@ -50,7 +50,7 @@
                   <view class="button" id="window">{{item.position.window.window_name}}</view>
                   <view class="button">¥{{item.price}}</view>
                 </view>
-                <view style="position: absolute;right: 8%;"><text style="color: #888888;">{{ item.like.like_num}}</text><image src="../../image/like{{item.like.like?'1':'0'}}.jpeg" style="width: 14px;height: 14px;" data-dish-id="{{item.dish_id}}" data-current="{{index}}" bindtap="like"></image></view>
+                <view style="position: absolute;right: 8%;"><text style="color: #888888;" decode="{{true}}">{{ item.like.like_num }}&nbsp;&nbsp;&nbsp;</text><image src="../../image/like{{item.like.like?'1':'0'}}.jpeg" style="width: 14px;height: 14px;" data-dish-id="{{item.dish_id}}" data-current="{{index}}" bindtap="like"></image></view>
               </view>
             </view>
           </swiper-item>

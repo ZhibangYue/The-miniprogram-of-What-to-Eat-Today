@@ -110,11 +110,12 @@
 
 .goods{
   margin-left: 0%;
+  background-color: white;
   height: 110px;
   width: 95%;
   border-radius: 8px;
   margin-bottom: 10px;
-  box-shadow:rgba(149,157,165,0.8) 0px 3px 5px;
+  box-shadow:rgba(149,157,165,3) 0px 3px 5px;
 }
 .img{
   margin-top: -20px;
@@ -191,7 +192,6 @@
 .no{
   z-index: -2;
   width: 100%;
-  height: 200px;
   position: relative;
 }
 .no-a{
@@ -202,3 +202,4 @@
   color: #888888;
   font-size:25px
 }
+
