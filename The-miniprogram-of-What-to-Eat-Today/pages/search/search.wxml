@@ -28,7 +28,7 @@
                   </view>
                   <view class="button">¥{{item.price}}</view>
                 </view>
-                <view style="position: absolute;right: 8%;"><text style="color: #888888;">{{ item.like.like_num}}</text><image src="../../image/like{{item.like.like?'1':'0'}}.jpeg" style="width: 14px;height: 14px;" data-dish-id="{{item.dish_id}}" data-current="{{index}}" bindtap="like"></image></view>
+                <view style="position: absolute;right: 8%;"><text style="color: #888888;" decode="{{true}}">{{ item.like.like_num}}&nbsp;&nbsp;&nbsp;</text><image src="../../image/like{{item.like.like?'1':'0'}}.jpeg" style="width: 14px;height: 14px;" data-dish-id="{{item.dish_id}}" data-current="{{index}}" bindtap="like"></image></view>
               </view>
               </view>
       </scroll-view>

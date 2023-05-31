@@ -33,6 +33,7 @@
         <view bindtap="select_floor" wx:for="{{floor}}" id="{{canteen}}{{index}}" data-current="{{index}}" class="{{currentTab==index ? 'on' : 'unon'}}">{{item}}</view>
       </view>
       <scroll-view scroll-y="true" style="height: {{scrollHeight-30}}px;" bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0'>
+        <view class="no" wx:if="{{a}} == 0"><view class="no-a">敬请期待</view></view>
         <swiper class="swiper" current="{{currentTab}}" bindchange="change_swiper" style="height: {{(page-1)*120*10+length*120}}px;">
           <swiper-item wx:for="{{floor}}">
             <view wx:for="{{dishes}}" class="sc">

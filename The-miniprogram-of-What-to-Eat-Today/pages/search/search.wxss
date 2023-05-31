@@ -158,13 +158,13 @@
 .label{ /*做一个书签效果*/
   position: relative;
   left: 90%;
-  height: 15%!important;
+  height: 15%;
   width: 0%;
   z-index: 1;
   font-weight: bold;
   line-height: 0;
   color: #000;
-  border: 8px solid #888888;
+  border: 8px solid rgba(225,225,225,0);
   border-bottom-color: transparent; /*下边框透明，变成空缺的角*/
 }
 #orange{

@@ -42,6 +42,7 @@ Page({
     dishes: [],
     id: [],
     length: 10,
+    a:1,
   },
 
   onLoad() {
@@ -81,6 +82,9 @@ Page({
       },
       fail: (err) => {
         console.log(err)
+        this.setData({
+          a :0,
+        })
       },
       complete: () => {
         wx.hideLoading()
