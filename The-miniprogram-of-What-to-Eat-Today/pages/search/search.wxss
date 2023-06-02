@@ -168,6 +168,6 @@
   border-bottom-color: transparent; /*下边框透明，变成空缺的角*/
 }
 #orange{
-  border: 8px solid #ff9d11;  
+  border: 8px solid rgba(225,225,225,0);  
   border-bottom-color: transparent;
 }
