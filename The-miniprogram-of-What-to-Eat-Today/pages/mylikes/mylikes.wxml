@@ -4,7 +4,7 @@
       <scroll-view wx:if="{{dishlist.length!=0}}" scroll-y="true" style="height: {{screenHeight+'px'}};"  bindscrolltolower='scrollToLower' bindscrolltoupper='scrollToUpper' lower-threshold='30' upper-threshold='0' 	show-scrollbar="true">
             <view wx:for="{{dishlist}}">
               <view class="goods">
-                <image class="img" lazy-load="true" src="https://eat.emmmmm.tk{{item.dish_photo}}"/>
+                <image class="img" lazy-load="true" src="https://yuming.propranolol.cn{{item.dish_photo}}"/>
                 <view class="name">{{item.dish_name}}</view>
                 <view class="tip">
                   <view class="button" id="floor">
